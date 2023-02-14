@@ -1,3 +1,6 @@
+import {playerA, playerB, startGame} from './playerData'
+
+
 const player1 = document.querySelector(".p1")
 const player2 = document.querySelector(".p2")
 const ball = document.querySelector(".baseball")
@@ -6,7 +9,10 @@ const player1Stat = document.querySelector(".play1Stat")
 const player2Stat = document.querySelector(".play2Stat")
 console.log(player1Stat)
 //object to store music data in
-const music = {
+
+let rNumber;
+
+export const music = {
     playable: true,
     snibbit: new Audio("../img/sounds/snibbit.mp3"),
     bravo: new Audio("../img/sounds/bravo.mp3"),
@@ -17,6 +23,7 @@ const music = {
     list: [new Audio("../img/sounds/zeroScar.mp3"), new Audio("../img/sounds/snibbit.mp3"), new Audio("../img/sounds/Nasty den.mp3"), new Audio("../img/sounds/Whipz.mp3"), new Audio("../img/sounds/zeroScar.mp3")],
     playMusic() {
         if (this.playable) {
+            
             rNumber = Math.floor(Math.random() * 5)
             this.list[rNumber].volume = 0.2
             this.list[rNumber].play()
@@ -25,7 +32,7 @@ const music = {
     }
 }
 //object for sound effects
-const soundEffect = {
+export const soundEffect = {
     hitBallBase: new Audio("../img/sounds/baseHit.mp3"),
     hardHits: [new Audio("../img/sounds/hardHit.mp3"), new Audio("../img/sounds/hardHit2.mp3")],
     crowdCheer: [new Audio("../img/sounds/crowd1.mp3"), new Audio("../img/sounds/crowd2.mp3")],
@@ -47,7 +54,7 @@ const soundEffect = {
 }
 
 //methods and varibles for the game status
-const game = {
+export const game = {
     hits: 0,
     velocity: 0.5,
     location: 20,
@@ -63,14 +70,12 @@ const game = {
         console.log(this.velocity)
     },
     //method that moves the ball based on the velocity of the ball
-    moveBall() {
+    moveBall(ball) {
         if (game.pause == false) {
             if (this.ballDirection) {
-                ball.style.left = `${this.location}%`
-                this.location = this.location + this.velocity
+                ball = ball + this.velocity
             } else {
-                ball.style.left = `${this.location}%`
-                this.location = this.location - this.velocity
+                ball = ball - this.velocity
             }
         }
 
