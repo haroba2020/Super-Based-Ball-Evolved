@@ -20,20 +20,36 @@ console.log(GIF_DATA)
 
 const Play = () => {
 
+    const [ballState, setBallState] = useState(20)
+
     const [player1, setPlayer1] = useState(GIF_DATA[0])
     const [player2, setPlayer2] = useState(GIF_DATA[1])
 
     const [player1Stat, setPlayer1Stat] = useState('')
     const [player2Stat, setPlayer2Stat] = useState('')
+    function updateState() {
+        setBallState(prevBallState => {
+          const newBallState = startGame(prevBallState);
+          console.log(newBallState);
+          return newBallState;
+        });
+      
+        requestAnimationFrame(updateState);
+      }  
 
     useEffect(()=>{
             document.addEventListener("keydown", function (e) {
 
                 if (game.hits === 0) {
-                    startGame('test')
-                    music.playMusic()
-                    setPlayer1Stat('')
-                    setPlayer2Stat('')
+                    
+                    setTimeout(()=>{
+                        requestAnimationFrame(updateState);
+                    }, 300)
+                      
+                      
+                    // music.playMusic()
+                    // setPlayer1Stat('')
+                    // setPlayer2Stat('')
                 }
 
                 if (e.key === "d" && playerA.cooldown === false) {
@@ -63,7 +79,6 @@ const Play = () => {
                 }
             })
         })
-    
     return ( 
         <div className="play">
 
@@ -88,12 +103,12 @@ const Play = () => {
                 <div className="white-space"></div>
                 <div className="flex-player">
                     <img src={player2} className=' player' alt="player2" />
-                </div>
+                </div>  
             </div>
             <div className="text-center score">
                 <h1 className="score">0</h1>
             </div>
-            <img src={GIF_DATA[4]} alt="" />
+            <img className="baseball" src={GIF_DATA[4]}  alt="" style={{ left: ballState+'%' }} />
         </div>
      );
 }

@@ -1,13 +1,13 @@
 import {game, soundEffect, music} from './game'
 
-export const test = 'test'
-
-export const startGame = setInterval((ball) => {
-    game.moveBall(ball)
-    game.ballOnScreen()
-
-    return
-}, 150) 
+export function startGame(ball) {
+    
+    const ballPosition = game.moveBall(ball)
+    console.log(ballPosition)
+    console.log(ball+' ball')
+    // game.ballOnScreen()
+    return ballPosition
+} 
 
 
 export const GIF_DATA = (function () { 

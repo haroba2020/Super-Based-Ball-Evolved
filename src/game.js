@@ -4,7 +4,6 @@ import {playerA, playerB, startGame} from './playerData'
 const player1 = document.querySelector(".p1")
 const player2 = document.querySelector(".p2")
 const ball = document.querySelector(".baseball")
-const score = document.querySelector(".score")
 const player1Stat = document.querySelector(".play1Stat")
 const player2Stat = document.querySelector(".play2Stat")
 console.log(player1Stat)
@@ -40,7 +39,7 @@ export const soundEffect = {
     hitBall() {        
         const rNumber = Math.floor(Math.random() * 1)+1
         if (game.hits < 10) {
-            this.hitBallBase.play()
+            // this.hitBallBase.play()
         } else if (game.hits > 9) {
             if(game.ballDirection){
                this.hardHits[0].play()
@@ -67,16 +66,19 @@ export const game = {
         }else{
             this.velocity = this.velocity + 0.03
         }
-        console.log(this.velocity)
     },
     //method that moves the ball based on the velocity of the ball
     moveBall(ball) {
         if (game.pause == false) {
+            
+            console.log(game.ballDirection)
             if (this.ballDirection) {
                 ball = ball + this.velocity
-            } else {
+                return ball
+            } else if(!this.ballDirection) {
                 ball = ball - this.velocity
-            }
+                return ball
+            }            
         }
 
     },
@@ -85,7 +87,6 @@ export const game = {
         this.hits++
         this.speedSet()
         this.changeScene()
-        score.textContent=this.hits
         console.log(`hit fired ${game.hits} hits have been fired so far`)
     },
     //Constantly checks if the ball is in screen and who lost the ball
@@ -112,7 +113,6 @@ export const game = {
         ball.setAttribute("src", "../img/baseball faster.gif")
         ball.style.width = "60px"
         music.list[rNumber].volume = 0.2
-        score.textContent=0
         if(playerA.score==3){
             player1Stat.textContent = "win"
             player2Stat.textContent = "lose"
