@@ -33,16 +33,17 @@ export const playerA = {
             }
         }
     },
-    aHitStart() {
+    aHitStart(location) {
 
-        if (game.location < 28 && game.location > 12) {
+        if (location < 28 && location > 12) {
             setTimeout(() => {
                 playerA.ahitFinish()
             }, game.velocity * 250)
+            console.log('gaming')
             soundEffect.hitBall()
+            game.startGame()
             game.location = 20
             game.moveBall()
-
             game.pause = true
         }
     },
@@ -69,8 +70,9 @@ export const playerB = {
             }
         }
     },
-    bhitStart() {
-        if (game.location > 72 && game.location < 88) {
+    bhitStart(location) {
+        console.log(location)
+        if (location > 72 && location < 88) {
             setTimeout(() => {
                 playerB.bhitFinish()
             }, game.velocity * 250)

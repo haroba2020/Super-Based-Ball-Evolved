@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from 'react-router-dom'
 import {playerA, playerB, startGame} from './playerData'
 import {game, music} from './game'
@@ -27,32 +27,48 @@ const Play = () => {
 
     const [player1Stat, setPlayer1Stat] = useState('')
     const [player2Stat, setPlayer2Stat] = useState('')
-    function updateState() {
-        setBallState(prevBallState => {
-          const newBallState = startGame(prevBallState);
-          console.log(newBallState);
-          return newBallState;
-        });
+
+    const requestRef = useRef();
+
+    const updateBallState = (timestamp) => {
+        if(!game.pause){
+            setBallState((prevState) => prevState + game.velocity);
+        }
+        
+        requestRef.current = requestAnimationFrame(updateBallState);
+    };
+
+    useEffect(() => {
+        requestRef.current = requestAnimationFrame(updateBallState);
+        return () => cancelAnimationFrame(requestRef.current);
+    }, []);
+
       
-        requestAnimationFrame(updateState);
-      }  
+
+
+    // function updateState() {
+    //     setTimeout(() => {
+    //     requestAnimationFrame(updateState);
+    //       setBallState(()=> {
+    //         if (!game.pause) {
+    //           console.log(game.ballDirection);
+    //           if (game.ballDirection) {
+    //             setBallState(ballState + 0.01)
+    //             // ballState = ballState + this.velocity
+    //           } else if (!game.ballDirection) {
+    //             setBallState(ballState - 0.01)
+    //           }
+    //         } else{
+    //             console.log(ballState)
+    //         }
+    //       });          
+    //     }, 50); // Add a delay of 50 milliseconds between each animation frame
+    //   }
+      
 
     useEffect(()=>{
             document.addEventListener("keydown", function (e) {
-
-                if (game.hits === 0) {
-                    
-                    setTimeout(()=>{
-                        requestAnimationFrame(updateState);
-                    }, 300)
-                      
-                      
-                    // music.playMusic()
-                    // setPlayer1Stat('')
-                    // setPlayer2Stat('')
-                }
-
-                if (e.key === "d" && playerA.cooldown === false) {
+                if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
                     playerA.switchCooldown();
                     setTimeout(() => {
@@ -60,7 +76,7 @@ const Play = () => {
                         playerA.switchCooldown()
                     }, 1000)
                     setTimeout(() => {
-                        playerA.aHitStart()
+                        playerA.aHitStart(ballState)
                     }, 300)
 
                 } else if (e.key === "k" && playerB.cooldown === false) {
@@ -71,7 +87,7 @@ const Play = () => {
                         playerB.switchCooldown()
                     }, 1000)
                     setTimeout(() => {
-                        playerB.bhitStart()
+                        playerB.bhitStart(ballState)
                     }, 300)
                 } else if (e.key === " ") {
                     console.log(e.key)

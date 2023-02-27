@@ -55,16 +55,16 @@ export const soundEffect = {
 //methods and varibles for the game status
 export const game = {
     hits: 0,
-    velocity: 0.5,
+    velocity: 0.4,
     location: 20,
     ballDirection: null,
-    pause: false,
+    pause: true,
     //Method to set the speed of the ball after every hit
     speedSet() {
         if(this.velocity<2.5){
-            this.velocity = this.velocity + 0.1
+            this.velocity = this.velocity + 0.06
         }else{
-            this.velocity = this.velocity + 0.03
+            this.velocity = this.velocity + 0.25
         }
     },
     //method that moves the ball based on the velocity of the ball
@@ -150,4 +150,9 @@ export const game = {
         soundEffect.crowdCheer[1].play()
         }
     },
+    startGame(){
+        if( this.hit === 0){
+           game.pause = false 
+        }
+    }
 }
