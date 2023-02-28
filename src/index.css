@@ -102,7 +102,7 @@ body{
   flex: 2;
 }
 .player{
-  height: 500px;
+  height: 400px;
 }
 .flip{
   transform: scaleX(-1);
@@ -110,7 +110,7 @@ body{
 .baseball{
   position: absolute;
   width: 60px;
-  top: 50%;
+  top: 60%;
   left: 20%;
   transition: left 20ms linear;
 }

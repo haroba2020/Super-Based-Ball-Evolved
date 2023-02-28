@@ -7,32 +7,38 @@ console.log(playerA)
 export const GIF_DATA = (function () { 
     let arr = []
     for(let i = 1 ; i <= 5 ; i++ ){
-        let tmpImg = require( `./assets/${i}.gif`)
+        let tmpImg = require( `./assets/Gifs/${i}.gif`)
         arr.push(tmpImg)
     }
     return arr
 })()
-console.log(playerA)
+console.log(playerA);
 
 
 
-console.log(GIF_DATA)
+console.log(GIF_DATA);
 
 const Play = () => {
 
-    const [ballState, setBallState] = useState(20)
+    const [ballState, setBallState] = useState(20);
 
-    const [player1, setPlayer1] = useState(GIF_DATA[0])
-    const [player2, setPlayer2] = useState(GIF_DATA[1])
+    const [player1, setPlayer1] = useState(GIF_DATA[0]);
+    const [player2, setPlayer2] = useState(GIF_DATA[1]);
 
-    const [player1Stat, setPlayer1Stat] = useState('')
-    const [player2Stat, setPlayer2Stat] = useState('')
+    const [player1Stat, setPlayer1Stat] = useState('');
+    const [player2Stat, setPlayer2Stat] = useState('');
 
     const requestRef = useRef();
+    const ballStateRef = useRef(ballState);
 
     const updateBallState = (timestamp) => {
         if(!game.pause){
-            setBallState((prevState) => prevState + game.velocity);
+            if(game.ballDirection){
+                setBallState((prevState) => prevState + game.velocity);
+            }else{
+                setBallState((prevState) => prevState - game.velocity);
+            }
+            
         }
         
         requestRef.current = requestAnimationFrame(updateBallState);
@@ -43,6 +49,10 @@ const Play = () => {
         return () => cancelAnimationFrame(requestRef.current);
     }, []);
 
+    useEffect(() => {
+        // Access the updated ballState here
+        // console.log(ballState);
+      }, [ballState]);
       
 
 
@@ -65,9 +75,18 @@ const Play = () => {
     //     }, 50); // Add a delay of 50 milliseconds between each animation frame
     //   }
       
+    useEffect(() => {
+        ballStateRef.current = ballState;
+      }, [ballState]);
 
     useEffect(()=>{
+        // const location = ballState
+        // const test = ((state)=>{
+        //     console.log(state)
+        // })
+        // test(ballState)
             document.addEventListener("keydown", function (e) {
+                const location = ballStateRef.current;
                 if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
                     playerA.switchCooldown();
@@ -76,7 +95,7 @@ const Play = () => {
                         playerA.switchCooldown()
                     }, 1000)
                     setTimeout(() => {
-                        playerA.aHitStart(ballState)
+                        playerA.aHitStart(location)
                     }, 300)
 
                 } else if (e.key === "k" && playerB.cooldown === false) {
@@ -87,14 +106,15 @@ const Play = () => {
                         playerB.switchCooldown()
                     }, 1000)
                     setTimeout(() => {
-                        playerB.bhitStart(ballState)
+                        console.log(location)
+                        playerB.bhitStart(location)
                     }, 300)
                 } else if (e.key === " ") {
                     console.log(e.key)
                     game.restartGame()
                 }
-            })
-        })
+            });
+          }, [ballState]);
     return ( 
         <div className="play">
 

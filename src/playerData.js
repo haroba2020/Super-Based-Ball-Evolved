@@ -34,8 +34,8 @@ export const playerA = {
         }
     },
     aHitStart(location) {
-
-        if (location < 28 && location > 12) {
+        console.log(location + "A hit")
+        if (location < 40 && location > 15) {
             setTimeout(() => {
                 playerA.ahitFinish()
             }, game.velocity * 250)
@@ -71,8 +71,8 @@ export const playerB = {
         }
     },
     bhitStart(location) {
-        console.log(location)
-        if (location > 72 && location < 88) {
+        console.log(location + "b hit")
+        if (location > 50 && location < 75) {
             setTimeout(() => {
                 playerB.bhitFinish()
             }, game.velocity * 250)
