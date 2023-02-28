@@ -48,43 +48,12 @@ const Play = () => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
     }, []);
-
-    useEffect(() => {
-        // Access the updated ballState here
-        // console.log(ballState);
-      }, [ballState]);
-      
-
-
-    // function updateState() {
-    //     setTimeout(() => {
-    //     requestAnimationFrame(updateState);
-    //       setBallState(()=> {
-    //         if (!game.pause) {
-    //           console.log(game.ballDirection);
-    //           if (game.ballDirection) {
-    //             setBallState(ballState + 0.01)
-    //             // ballState = ballState + this.velocity
-    //           } else if (!game.ballDirection) {
-    //             setBallState(ballState - 0.01)
-    //           }
-    //         } else{
-    //             console.log(ballState)
-    //         }
-    //       });          
-    //     }, 50); // Add a delay of 50 milliseconds between each animation frame
-    //   }
-      
+ 
     useEffect(() => {
         ballStateRef.current = ballState;
       }, [ballState]);
 
     useEffect(()=>{
-        // const location = ballState
-        // const test = ((state)=>{
-        //     console.log(state)
-        // })
-        // test(ballState)
             document.addEventListener("keydown", function (e) {
                 const location = ballStateRef.current;
                 if(e.key === "d" && playerA.cooldown === false) {
