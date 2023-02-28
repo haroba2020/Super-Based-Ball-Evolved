@@ -1,0 +1,111 @@
+/* Navbar */
+
+body {
+    background-color: rgb(216, 150, 255);
+    margin: 0;
+}
+
+.center-element {
+    text-align: center;
+}
+
+#navbar {
+    background-color: aliceblue;
+    position: fixed;
+    overflow: hidden;
+    text-align: center;
+    width: 1920px;
+}
+
+.nav-element {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 250%;
+    padding-left: 150px;
+    padding-right: 150px;
+    text-align: center;
+    transition: transform .2s;
+}
+
+.nav-element:hover {
+    font-weight: bold;
+    transform: scale(1.5);
+}
+
+/* Carousel */
+
+.slideshow-container {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+
+.next {
+    margin-left: 65%;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    margin-left: 32%;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.text {
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding-top: 7%;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.active, .dot:hover {
+    background-color: yellow;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 0.8s;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
