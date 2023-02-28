@@ -10,7 +10,7 @@ body {
 }
 
 #navbar {
-    background-color: aliceblue;
+    background-color: rgb(188, 221, 250);
     position: fixed;
     overflow: hidden;
     text-align: center;
