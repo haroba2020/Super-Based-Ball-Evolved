@@ -2,7 +2,7 @@ import {game, soundEffect, music} from './game'
 import {useRef, useEffect} from "react"
 
 
-function PlaterData() {
+function PlayerData() {
     const inputRef = useRef();
     console.log(inputRef)
 
@@ -97,5 +97,3 @@ function PlaterData() {
         }
     }
 }
-
-export  default PlaterData() 
