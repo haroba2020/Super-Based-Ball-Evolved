@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Link } from 'react-router-dom'
-import {playerA, playerB, startGame} from './playerData'
+import {playerA, playerB, startGame} from './PlayerData'
 import {game, music} from './game'
 
 console.log(playerA)
@@ -31,6 +31,8 @@ const Play = () => {
 
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
+    const inputRef = useRef();
+
 
     const updateBallState = (timestamp) => {
         if(!game.pause){
@@ -57,6 +59,7 @@ const Play = () => {
     useEffect(()=>{
             document.addEventListener("keydown", function (e) {
                 const location = ballStateRef.current;
+                console.log(inputRef+"inputref event listener")
                 if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
                     playerA.switchCooldown();
@@ -91,7 +94,7 @@ const Play = () => {
         <div className="play">
 
             
-               
+            <input type="text" ref={inputRef} value="test" />
             <div className="flex-parent-player">
                 <div className="flex-player gameFinal">
                     <h1 className="gameFinal play1Stat d-none">{player1Stat}</h1>
