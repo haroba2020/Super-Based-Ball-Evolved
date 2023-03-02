@@ -36,7 +36,6 @@ export const playerA = {
     aHitStart(location) {
         console.log(location + "A hit")
         if (location < 40 && location > 15) {
-            console.log('gaming')
             soundEffect.hitBall()
             game.startGame()
             game.location = 20

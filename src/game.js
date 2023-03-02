@@ -8,7 +8,22 @@ export const GIF_DATA = (function () {
     }
     return arr
 })()
-
+const SFX_DATA = (function () { 
+    let arr = []
+    for(let i = 1 ; i <= 6 ; i++ ){
+        let tmpImg = require( `./assets/soundsEffects/${i}.mp3`)
+        arr.push(tmpImg)
+    }
+    return arr
+})()
+const MUSIC_DATA = (function () { 
+    let arr = []
+    for(let i = 1 ; i <= 5 ; i++ ){
+        let tmpImg = require( `./assets/Music/${i}.mp3`)
+        arr.push(tmpImg)
+    }
+    return arr
+})()
 const player1 = document.querySelector(".p1")
 const player2 = document.querySelector(".p2")
 const ball = document.querySelector(".baseball")
@@ -20,21 +35,16 @@ console.log(player1Stat)
 let rNumber;
 
 export const music = {
-    playable: true,
-    snibbit: new Audio("../img/sounds/snibbit.mp3"),
-    bravo: new Audio("../img/sounds/bravo.mp3"),
-    nastyDen: new Audio("../img/sounds/Nasty den.mp3"),
-    whipz: new Audio("../img/sounds/Whipz.mp3"),
-    zeroScar: new Audio("../img/sounds/zeroScar.mp3"),
-
     list: [new Audio("../img/sounds/zeroScar.mp3"), new Audio("../img/sounds/snibbit.mp3"), new Audio("../img/sounds/Nasty den.mp3"), new Audio("../img/sounds/Whipz.mp3"), new Audio("../img/sounds/zeroScar.mp3")],
     playMusic() {
         if (this.playable) {
-            
-            rNumber = Math.floor(Math.random() * 5)
-            this.list[rNumber].volume = 0.2
-            this.list[rNumber].play()
-            this.playable = false
+            // // const audio = document.getElementById("MyAudio");
+            // // console.log(audio)
+            // // audio.play()
+            // rNumber = Math.floor(Math.random() * 5)
+            // this.list[rNumber].volume = 0.2
+            // this.list[rNumber].play()
+            // this.playable = false
         }
     }
 }
@@ -50,11 +60,11 @@ export const soundEffect = {
             // this.hitBallBase.play()
         } else if (game.hits > 9) {
             if(game.ballDirection){
-               this.hardHits[0].play()
-               console.log('hard hit 1 fired')
+            //    this.hardHits[0].play()
+            //    console.log('hard hit 1 fired')
             }else{
-                this.hardHits[1].play() 
-                console.log('hard hit 2 fired')
+                // this.hardHits[1].play() 
+                // console.log('hard hit 2 fired')
             }
         }
     }
@@ -93,6 +103,8 @@ export const game = {
     //method to update game when a hit have been fired
     hit() {
         console.log(`hit fired ${game.hits} hits have been fired so far`)
+        console.log(SFX_DATA)
+        // MUSIC_DATA[0].play()
         this.hits++
         this.speedSet()
         return game.changeScene()
@@ -145,9 +157,8 @@ export const game = {
     changeScene() {
         if (this.hits == 10){
         
-            
-        music.list[rNumber].volume = 0.3
-        soundEffect.crowdCheer[0].play()
+        // music.list[rNumber].volume = 0.3
+        // soundEffect.crowdCheer[0].play()
         return GIF_DATA[5]
         }
         else if(this.hits == 20){

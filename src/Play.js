@@ -12,11 +12,14 @@ export const GIF_DATA = (function () {
     }
     return arr
 })()
-console.log(playerA);
-
-
-
-console.log(GIF_DATA);
+const MUSIC_DATA = (function () { 
+    let arr = []
+    for(let i = 1 ; i <= 5 ; i++ ){
+        let tmpImg = require( `./assets/Music/${i}.mp3`)
+        arr.push(tmpImg)
+    }
+    return arr
+})()
 
 const Play = () => {
 
@@ -31,6 +34,7 @@ const Play = () => {
 
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
+
 
     const updateBallState = (timestamp) => {
         if(!game.pause){
@@ -57,6 +61,10 @@ const Play = () => {
     useEffect(()=>{
             document.addEventListener("keydown", function (e) {
                 const location = ballStateRef.current;
+
+                const audio = document.getElementById("MyAudio");
+                console.log(audio)
+                audio.play()
                 if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
                     playerA.switchCooldown();
@@ -117,6 +125,9 @@ const Play = () => {
                 <h1 className="score">0</h1>
             </div>
             <img className="baseball" src={ballSprite}  alt="" style={{ left: ballState+'%' }} />
+            <audio id="MyAudio">
+                <source src={MUSIC_DATA[0]} type="audio/mp3" />
+            </audio>
         </div>
      );
 }
