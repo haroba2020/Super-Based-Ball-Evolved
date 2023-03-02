@@ -6,7 +6,7 @@ import {game, music} from './game'
 console.log(playerA)
 export const GIF_DATA = (function () { 
     let arr = []
-    for(let i = 1 ; i <= 5 ; i++ ){
+    for(let i = 1 ; i <= 7 ; i++ ){
         let tmpImg = require( `./assets/Gifs/${i}.gif`)
         arr.push(tmpImg)
     }
@@ -24,6 +24,7 @@ const Play = () => {
 
     const [player1, setPlayer1] = useState(GIF_DATA[0]);
     const [player2, setPlayer2] = useState(GIF_DATA[1]);
+    const [ballSprite, setBallSprite] = useState(GIF_DATA[4])
 
     const [player1Stat, setPlayer1Stat] = useState('');
     const [player2Stat, setPlayer2Stat] = useState('');
@@ -64,7 +65,9 @@ const Play = () => {
                         playerA.switchCooldown()
                     }, 1000)
                     setTimeout(() => {
-                        playerA.aHitStart(location)
+                        playerA.aHitStart(location).then((value)=>{
+                            setBallSprite(value)
+                        })
                     }, 300)
 
                 } else if (e.key === "k" && playerB.cooldown === false) {
@@ -113,7 +116,7 @@ const Play = () => {
             <div className="text-center score">
                 <h1 className="score">0</h1>
             </div>
-            <img className="baseball" src={GIF_DATA[4]}  alt="" style={{ left: ballState+'%' }} />
+            <img className="baseball" src={ballSprite}  alt="" style={{ left: ballState+'%' }} />
         </div>
      );
 }

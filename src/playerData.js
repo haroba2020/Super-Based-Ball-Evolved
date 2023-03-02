@@ -13,7 +13,7 @@ export function startGame(ball) {
 export const GIF_DATA = (function () { 
     let arr = []
     for(let i = 1 ; i <= 5 ; i++ ){
-        let tmpImg = require( `./assets/${i}.gif`)
+        let tmpImg = require( `./assets/Gifs/${i}.gif`)
         arr.push(tmpImg)
     }
     return arr
@@ -36,21 +36,23 @@ export const playerA = {
     aHitStart(location) {
         console.log(location + "A hit")
         if (location < 40 && location > 15) {
-            setTimeout(() => {
-                playerA.ahitFinish()
-            }, game.velocity * 250)
             console.log('gaming')
             soundEffect.hitBall()
             game.startGame()
             game.location = 20
             game.moveBall()
             game.pause = true
-        }
+            return new Promise(resolve => {
+                setTimeout(() => {
+                  resolve(playerA.ahitFinish())
+                }, game.velocity * 250)
+              })
+            }     
     },
     ahitFinish() {
-        game.hit();
         game.ballDirection = true
         game.pause = false
+        return game.hit();
     }
 }
 

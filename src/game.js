@@ -1,5 +1,13 @@
 import {playerA, playerB, startGame} from './playerData'
 
+export const GIF_DATA = (function () { 
+    let arr = []
+    for(let i = 1 ; i <= 7 ; i++ ){
+        let tmpImg = require( `./assets/Gifs/${i}.gif`)
+        arr.push(tmpImg)
+    }
+    return arr
+})()
 
 const player1 = document.querySelector(".p1")
 const player2 = document.querySelector(".p2")
@@ -84,10 +92,11 @@ export const game = {
     },
     //method to update game when a hit have been fired
     hit() {
+        console.log(`hit fired ${game.hits} hits have been fired so far`)
         this.hits++
         this.speedSet()
-        this.changeScene()
-        console.log(`hit fired ${game.hits} hits have been fired so far`)
+        return game.changeScene()
+        
     },
     //Constantly checks if the ball is in screen and who lost the ball
     ballOnScreen() {
@@ -135,19 +144,20 @@ export const game = {
     // method that changes the scene base on how many hits have been fired
     changeScene() {
         if (this.hits == 10){
-
-            ball.setAttribute("src", "../img/fire-fireball.gif")
-            ball.style.width = "100px"
+        
+            
         music.list[rNumber].volume = 0.3
         soundEffect.crowdCheer[0].play()
-        console.log(rNumber)
+        return GIF_DATA[5]
         }
-        if(this.hits == 20){
+        else if(this.hits == 20){
             ball.setAttribute("src", "../img/cosmicBall.gif")
             ball.style.width = "100px"
         music.list[rNumber].volume = 0.4
         console.log(rNumber)
         soundEffect.crowdCheer[1].play()
+        }else{
+            return GIF_DATA[4]
         }
     },
     startGame(){
@@ -156,3 +166,4 @@ export const game = {
         }
     }
 }
+        
