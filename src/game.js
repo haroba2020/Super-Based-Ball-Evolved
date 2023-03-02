@@ -1,4 +1,4 @@
-import {playerA, playerB, startGame} from './PlayerData'
+import {playerA, playerB, startGame} from './playerData'
 
 export const GIF_DATA = (function () { 
     let arr = []

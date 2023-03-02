@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import {playerA, playerB, startGame} from './PlayerData'
 import {game, music} from './game'
 
-console.log(playerA)
 export const GIF_DATA = (function () { 
     let arr = []
     for(let i = 1 ; i <= 7 ; i++ ){
@@ -67,7 +66,7 @@ const Play = () => {
                 const audio = document.getElementById("MyAudio");
                 console.log(audio)
                 audio.play()
-                
+
                 if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
                     playerA.switchCooldown();
