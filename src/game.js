@@ -1,4 +1,4 @@
-import {playerA, playerB, startGame} from './playerData'
+import {playerA, playerB} from './playerData'
 
 export const GIF_DATA = (function () { 
     let arr = []
@@ -8,14 +8,14 @@ export const GIF_DATA = (function () {
     }
     return arr
 })()
-const SFX_DATA = (function () { 
-    let arr = []
-    for(let i = 1 ; i <= 6 ; i++ ){
-        let tmpImg = require( `./assets/soundsEffects/${i}.mp3`)
-        arr.push(tmpImg)
-    }
-    return arr
-})()
+// const SFX_DATA = (function () { 
+//     let arr = []
+//     for(let i = 1 ; i <= 6 ; i++ ){
+//         let tmpImg = require( `./assets/soundsEffects/${i}.mp3`)
+//         arr.push(tmpImg)
+//     }
+//     return arr
+// })()
 const MUSIC_DATA = (function () { 
     let arr = []
     for(let i = 1 ; i <= 5 ; i++ ){
@@ -50,20 +50,21 @@ export const music = {
 }
 //object for sound effects
 export const soundEffect = {
-    hitBallBase: new Audio("../img/sounds/baseHit.mp3"),
-    hardHits: [new Audio("../img/sounds/hardHit.mp3"), new Audio("../img/sounds/hardHit2.mp3")],
-    crowdCheer: [new Audio("../img/sounds/crowd1.mp3"), new Audio("../img/sounds/crowd2.mp3")],
-    nuclearAlarm: new Audio("../img/sounds/smashGame.mp3"),
+    hitBallBase: new Audio("/soundEffects/1.mp3"),
+    hardHits: [new Audio("/soundEffects/2.mp3"), new Audio("/soundEffects/3.mp3")],
+    crowdCheer: [new Audio("/soundEffects/4.mp3"), new Audio("/soundEffects/5.mp3")],
+    nuclearAlarm: new Audio("/soundEffects/6.mp3"),
     hitBall() {        
         const rNumber = Math.floor(Math.random() * 1)+1
         if (game.hits < 10) {
+                this.hitBallBase.play()
             // this.hitBallBase.play()
         } else if (game.hits > 9) {
             if(game.ballDirection){
-            //    this.hardHits[0].play()
+            this.hardHits[0].play()
             //    console.log('hard hit 1 fired')
             }else{
-                // this.hardHits[1].play() 
+            this.hardHits[1].play() 
                 // console.log('hard hit 2 fired')
             }
         }
@@ -85,25 +86,10 @@ export const game = {
             this.velocity = this.velocity + 0.25
         }
     },
-    //method that moves the ball based on the velocity of the ball
-    moveBall(ball) {
-        if (game.pause == false) {
-            
-            console.log(game.ballDirection)
-            if (this.ballDirection) {
-                ball = ball + this.velocity
-                return ball
-            } else if(!this.ballDirection) {
-                ball = ball - this.velocity
-                return ball
-            }            
-        }
-
-    },
     //method to update game when a hit have been fired
     hit() {
         console.log(`hit fired ${game.hits} hits have been fired so far`)
-        console.log(SFX_DATA)
+        // console.log(SFX_DATA)
         // MUSIC_DATA[0].play()
         this.hits++
         this.speedSet()
@@ -111,15 +97,15 @@ export const game = {
         
     },
     //Constantly checks if the ball is in screen and who lost the ball
-    ballOnScreen() {
-        if (this.location < 0) {
-            ball.classList.add("d-none")
+    ballOnScreen(location) {
+        console.log(location)
+        if (location < 0) {
             playerB.score++
             console.log(playerB.score)
             this.restartGame()
-        }else if(this.location > 100){
+        }else if(location > 99){
             playerA.score++
-            ball.classList.add("d-none")
+
             this.restartGame()
         }
     },
@@ -128,40 +114,39 @@ export const game = {
         this.hits = 0
         this.velocity = 0.5
         this.location = 20
-        clearInterval(startGame)
-        this.moveBall()
-        ball.classList.remove("d-none")
-        ball.setAttribute("src", "../img/baseball faster.gif")
-        ball.style.width = "60px"
-        music.list[rNumber].volume = 0.2
+        // this.moveBall()
+        // ball.classList.remove("d-none")
+        // ball.setAttribute("src", "../img/baseball faster.gif")
+        // ball.style.width = "60px"
+        // music.list[rNumber].volume = 0.2
         if(playerA.score==3){
-            player1Stat.textContent = "win"
-            player2Stat.textContent = "lose"
-            player1Stat.classList.remove("d-none")
-            player2Stat.classList.remove("d-none")
-            soundEffect.nuclearAlarm.play()
+            // player1Stat.textContent = "win"
+            // player2Stat.textContent = "lose"
+            // player1Stat.classList.remove("d-none")
+            // player2Stat.classList.remove("d-none")
+            // soundEffect.nuclearAlarm.play()
             playerA.score = 0
             playerB.score = 0
 
         }else if(playerB.score==3){
-            player1Stat.textContent = "lose"
-            player2Stat.textContent = "win"
-            player1Stat.classList.remove("d-none")
-            player2Stat.classList.remove("d-none")
-            soundEffect.nuclearAlarm.play()
+            // player1Stat.textContent = "lose"
+            // player2Stat.textContent = "win"
+            // player1Stat.classList.remove("d-none")
+            // player2Stat.classList.remove("d-none")
+            // soundEffect.nuclearAlarm.play()
             playerA.score = 0
             playerB.score = 0
         }
     },
     // method that changes the scene base on how many hits have been fired
     changeScene() {
-        if (this.hits == 10){
+        if (this.hits > 10){
         
         // music.list[rNumber].volume = 0.3
         // soundEffect.crowdCheer[0].play()
         return GIF_DATA[5]
         }
-        else if(this.hits == 20){
+        else if(this.hits === 20){
             ball.setAttribute("src", "../img/cosmicBall.gif")
             ball.style.width = "100px"
         music.list[rNumber].volume = 0.4

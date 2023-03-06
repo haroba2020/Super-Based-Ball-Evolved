@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Link } from 'react-router-dom'
-import {playerA, playerB, startGame} from './PlayerData'
+import {playerA, playerB} from './playerData'
 import {game, music} from './game'
 
 export const GIF_DATA = (function () { 
@@ -39,11 +39,13 @@ const Play = () => {
 
     const updateBallState = (timestamp) => {
         if(!game.pause){
+            const location = ballStateRef.current;
             if(game.ballDirection){
                 setBallState((prevState) => prevState + game.velocity);
             }else{
                 setBallState((prevState) => prevState - game.velocity);
             }
+            game.ballOnScreen(location)
             
         }
         
@@ -63,9 +65,9 @@ const Play = () => {
             document.addEventListener("keydown", function (e) {
                 const location = ballStateRef.current;
 
-                const audio = document.getElementById("MyAudio");
-                console.log(audio)
-                audio.play()
+                // const audio = document.getElementById("MyAudio");
+                // console.log(audio)
+                // audio.play()
 
                 if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
