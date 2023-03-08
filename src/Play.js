@@ -50,7 +50,7 @@ const Play = () => {
         
         requestRef.current = requestAnimationFrame(updateBallState);
     };
-    function handlePrite(size, sprite, direction){
+    function handleSprite(size, sprite, direction){
         setBallSize(size)
         setBallSprite(sprite)
         setBallDirection(direction)
@@ -76,7 +76,7 @@ const Play = () => {
                     }, 1000)
                     setTimeout(() => {
                         playerA.aHitStart(location).then((value)=>{
-                            console.log(value.sprite)
+                            handleSprite()
                         })
                     }, 300)
 
