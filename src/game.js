@@ -8,22 +8,7 @@ export const GIF_DATA = (function () {
     }
     return arr
 })()
-// const SFX_DATA = (function () { 
-//     let arr = []
-//     for(let i = 1 ; i <= 6 ; i++ ){
-//         let tmpImg = require( `./assets/soundsEffects/${i}.mp3`)
-//         arr.push(tmpImg)
-//     }
-//     return arr
-// })()
-const MUSIC_DATA = (function () { 
-    let arr = []
-    for(let i = 1 ; i <= 5 ; i++ ){
-        let tmpImg = require( `./assets/Music/${i}.mp3`)
-        arr.push(tmpImg)
-    }
-    return arr
-})()
+
 const player1 = document.querySelector(".p1")
 const player2 = document.querySelector(".p2")
 const ball = document.querySelector(".baseball")
@@ -32,19 +17,15 @@ const player2Stat = document.querySelector(".play2Stat")
 console.log(player1Stat)
 //object to store music data in
 
-let rNumber;
-
 export const music = {
-    list: [new Audio("../img/sounds/zeroScar.mp3"), new Audio("../img/sounds/snibbit.mp3"), new Audio("../img/sounds/Nasty den.mp3"), new Audio("../img/sounds/Whipz.mp3"), new Audio("../img/sounds/zeroScar.mp3")],
+    rNumber:Math.floor(Math.random() * 5),
+    playable: true,
+    list: [new Audio("/Music/1.mp3"), new Audio("/Music/2.mp3"), new Audio("/Music/3.mp3"), new Audio("/Music/4.mp3"), new Audio("/Music/5.mp3")],
     playMusic() {
         if (this.playable) {
-            // // const audio = document.getElementById("MyAudio");
-            // // console.log(audio)
-            // // audio.play()
-            // rNumber = Math.floor(Math.random() * 5)
-            // this.list[rNumber].volume = 0.2
-            // this.list[rNumber].play()
-            // this.playable = false
+            this.list[this.rNumber].volume = 0.2
+            this.list[this.rNumber].play()
+            this.playable = false
         }
     }
 }
@@ -68,6 +49,13 @@ export const soundEffect = {
                 // console.log('hard hit 2 fired')
             }
         }
+    },
+    crowdSound(crowd){
+        if(crowd===1){
+            this.crowdCheer[0].play()
+        }else if(crowd===2){
+            this.crowdCheer[1].play()
+        }
     }
 }
 
@@ -89,24 +77,21 @@ export const game = {
     //method to update game when a hit have been fired
     hit() {
         console.log(`hit fired ${game.hits} hits have been fired so far`)
-        // console.log(SFX_DATA)
-        // MUSIC_DATA[0].play()
+
         this.hits++
         this.speedSet()
+        music.playMusic()
         return game.changeScene()
         
     },
     //Constantly checks if the ball is in screen and who lost the ball
     ballOnScreen(location) {
-        console.log(location)
         if (location < 0) {
             playerB.score++
-            console.log(playerB.score)
-            this.restartGame()
+            return true
         }else if(location > 99){
             playerA.score++
-
-            this.restartGame()
+            return true
         }
     },
     //Method that restarts the ball and checks for a winner
@@ -114,11 +99,12 @@ export const game = {
         this.hits = 0
         this.velocity = 0.5
         this.location = 20
-        // this.moveBall()
+        this.pause = true
+        
         // ball.classList.remove("d-none")
         // ball.setAttribute("src", "../img/baseball faster.gif")
         // ball.style.width = "60px"
-        // music.list[rNumber].volume = 0.2
+        music.list[music.rNumber].volume = 0.2
         if(playerA.score==3){
             // player1Stat.textContent = "win"
             // player2Stat.textContent = "lose"
@@ -137,23 +123,24 @@ export const game = {
             playerA.score = 0
             playerB.score = 0
         }
+        return [this.location, GIF_DATA[4], 60]
     },
     // method that changes the scene base on how many hits have been fired
     changeScene() {
-        if (this.hits > 10){
+        if (this.hits > 10&&this.hits<20){
         
-        // music.list[rNumber].volume = 0.3
-        // soundEffect.crowdCheer[0].play()
-        return GIF_DATA[5]
+        music.list[music.rNumber].volume = 0.4
+        soundEffect.crowdSound(1)
+        return {sprite:GIF_DATA[5],size:100}
         }
-        else if(this.hits === 20){
-            ball.setAttribute("src", "../img/cosmicBall.gif")
-            ball.style.width = "100px"
-        music.list[rNumber].volume = 0.4
-        console.log(rNumber)
-        soundEffect.crowdCheer[1].play()
+        else if(this.hits > 20){
+        
+        
+        music.list[music.rNumber].volume = 0.6
+        soundEffect.crowdSound(2)
+        return {sprite:GIF_DATA[6],size:100}
         }else{
-            return GIF_DATA[4]
+            return {sprite:GIF_DATA[4],size:60}
         }
     },
     startGame(){

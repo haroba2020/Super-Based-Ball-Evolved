@@ -11,14 +11,7 @@ export const GIF_DATA = (function () {
     }
     return arr
 })()
-const MUSIC_DATA = (function () { 
-    let arr = []
-    for(let i = 1 ; i <= 5 ; i++ ){
-        let tmpImg = require( `./assets/Music/${i}.mp3`)
-        arr.push(tmpImg)
-    }
-    return arr
-})()
+
 
 const Play = () => {
 
@@ -27,6 +20,8 @@ const Play = () => {
     const [player1, setPlayer1] = useState(GIF_DATA[0]);
     const [player2, setPlayer2] = useState(GIF_DATA[1]);
     const [ballSprite, setBallSprite] = useState(GIF_DATA[4])
+    const [ballSize, setBallSize] = useState(60)
+    const [ballDirection, setBallDirection] = useState()
 
     const [player1Stat, setPlayer1Stat] = useState('');
     const [player2Stat, setPlayer2Stat] = useState('');
@@ -34,7 +29,6 @@ const Play = () => {
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
     const inputRef = useRef();
-
 
 
     const updateBallState = (timestamp) => {
@@ -45,13 +39,22 @@ const Play = () => {
             }else{
                 setBallState((prevState) => prevState - game.velocity);
             }
-            game.ballOnScreen(location)
-            
+            if(game.ballOnScreen(location)){
+                const matchData = game.restartGame()
+                console.log(matchData)
+               setBallState(matchData[0])
+               setBallSprite(matchData[1])
+               setBallSize(matchData[2])
+            }
         }
         
         requestRef.current = requestAnimationFrame(updateBallState);
     };
-
+    function handlePrite(size, sprite, direction){
+        setBallSize(size)
+        setBallSprite(sprite)
+        setBallDirection(direction)
+    }
     useEffect(() => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
@@ -60,14 +63,9 @@ const Play = () => {
     useEffect(() => {
         ballStateRef.current = ballState;
       }, [ballState]);
-
     useEffect(()=>{
             document.addEventListener("keydown", function (e) {
                 const location = ballStateRef.current;
-
-                // const audio = document.getElementById("MyAudio");
-                // console.log(audio)
-                // audio.play()
 
                 if(e.key === "d" && playerA.cooldown === false) {
                     setPlayer1(GIF_DATA[2])
@@ -78,7 +76,7 @@ const Play = () => {
                     }, 1000)
                     setTimeout(() => {
                         playerA.aHitStart(location).then((value)=>{
-                            setBallSprite(value)
+                            console.log(value.sprite)
                         })
                     }, 300)
 
@@ -90,8 +88,9 @@ const Play = () => {
                         playerB.switchCooldown()
                     }, 1000)
                     setTimeout(() => {
-                        console.log(location)
-                        playerB.bhitStart(location)
+                        playerB.bhitStart(location).then((value)=>{
+                            setBallSprite(value)
+                        })
                     }, 300)
                 } else if (e.key === " ") {
                     console.log(e.key)
@@ -101,8 +100,6 @@ const Play = () => {
           }, [ballState]);
     return ( 
         <div className="play">
-
-            
             <input type="text" ref={inputRef} value="test" />
             <div className="flex-parent-player">
                 <div className="flex-player gameFinal">
@@ -128,10 +125,7 @@ const Play = () => {
             <div className="text-center score">
                 <h1 className="score">0</h1>
             </div>
-            <img className="baseball" src={ballSprite}  alt="" style={{ left: ballState+'%' }} />
-            <audio id="MyAudio">
-                <source src={MUSIC_DATA[0]} type="audio/mp3" />
-            </audio>
+            <img className="baseball" src={ballSprite}  alt="" style={{ left: ballState+'%' , width: ballSize}} />
         </div>
      );
 }

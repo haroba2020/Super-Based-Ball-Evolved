@@ -16,7 +16,7 @@ import {useRef, useEffect, useState} from "react"
         },
         aHitStart(location) {
             console.log(location + "A hit")
-            if (location < 40 && location > 15) {
+            if (location < 50 && location > 15) {
                 soundEffect.hitBall()
                 game.startGame()
                 game.location = 20
@@ -26,7 +26,7 @@ import {useRef, useEffect, useState} from "react"
                     resolve(playerA.ahitFinish())
                     }, game.velocity * 250)
                 })
-                }     
+                }
         },
         ahitFinish() {
             game.ballDirection = true
