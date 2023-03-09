@@ -1,89 +1,72 @@
 import {game, soundEffect, music} from './game'
+import {useRef, useEffect, useState} from "react"
 
-export const test = 'test'
+    export const playerA = {
+        cooldown: false,
+        score:0,
 
-export const startGame = setInterval((ball) => {
-    game.moveBall(ball)
-    game.ballOnScreen()
-
-    return
-}, 150) 
-
-
-export const GIF_DATA = (function () { 
-    let arr = []
-    for(let i = 1 ; i <= 5 ; i++ ){
-        let tmpImg = require( `./assets/${i}.gif`)
-        arr.push(tmpImg)
-    }
-    return arr
-})()
-
-
-export const playerA = {
-    cooldown: false,
-    score:0,
-
-    switchCooldown() {
-        if (typeof (this.cooldown) == "boolean") {
-            if (this.cooldown) {
-                this.cooldown = false;
-            } else {
-                this.cooldown = true;
+        switchCooldown() {
+            if (typeof (this.cooldown) == "boolean") {
+                if (this.cooldown) {
+                    this.cooldown = false;
+                } else {
+                    this.cooldown = true;
+                }
             }
+        },
+        aHitStart(location) {
+            console.log(location + "A hit")
+            if (location < 45 && location > 15) {
+                soundEffect.hitBall()
+                game.startGame()
+                game.location = 20
+                game.pause = true
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                    resolve(playerA.ahitFinish())
+                    }, game.velocity * 250)
+                })
+                }
+        },
+        ahitFinish() {
+            game.ballDirection = true
+            game.pause = false
+            return game.hit();
         }
-    },
-    aHitStart() {
-
-        if (game.location < 28 && game.location > 12) {
-            setTimeout(() => {
-                playerA.ahitFinish()
-            }, game.velocity * 250)
-            soundEffect.hitBall()
-            game.location = 20
-            game.moveBall()
-
-            game.pause = true
-        }
-    },
-    ahitFinish() {
-        game.hit();
-        game.ballDirection = true
-        game.pause = false
     }
-}
 
 
 
-//methods and varibles for player B
-export const playerB = {
-    cooldown: false,
-    score:0,
+    //methods and varibles for player B
+     export const playerB = {
+        cooldown: false,
+        score:0,
 
-    switchCooldown() {
-        if (typeof (this.cooldown) == "boolean") {
-            if (this.cooldown) {
-                this.cooldown = false;
-            } else {
-                this.cooldown = true;
+        switchCooldown() {
+            if (typeof (this.cooldown) == "boolean") {
+                if (this.cooldown) {
+                    this.cooldown = false;
+                } else {
+                    this.cooldown = true;
+                }
             }
+        },
+        bhitStart(location) {
+            console.log(location + "b hit")
+            if (location > 55 && location < 85) {
+                soundEffect.hitBall()
+                game.location = 77
+                game.pause = true
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                    resolve(playerB.bhitFinish())
+                    }, game.velocity * 250)
+                })
+            }
+        },
+        bhitFinish() {
+            game.ballDirection = false
+            game.pause = false
+            return game.hit();
         }
-    },
-    bhitStart() {
-        if (game.location > 72 && game.location < 88) {
-            setTimeout(() => {
-                playerB.bhitFinish()
-            }, game.velocity * 250)
-            soundEffect.hitBall()
-            game.location = 77
-            game.moveBall()
-            game.pause = true
-        
-        }
-    },
-    bhitFinish() {
-        game.hit();
-        game.ballDirection = false
-        game.pause = false
     }
-}
