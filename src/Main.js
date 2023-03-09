@@ -1,6 +1,6 @@
 const Main = () => {
     return (
-    <div class="main"><section>
+    <div class="main"><section class="container">
         <div class="carousel-container">
             <div class="mySlides fade">
               <div class="numbertext center-element">

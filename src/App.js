@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './Navbar';
 import Play from './Play';
-import Main from "./Index";
+import Main from "./Main";
 import About from "./About";
 
 function App() {
