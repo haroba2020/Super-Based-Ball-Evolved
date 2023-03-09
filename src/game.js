@@ -100,26 +100,16 @@ export const game = {
         this.velocity = 0.5
         this.location = 20
         this.pause = true
-        
-        // ball.classList.remove("d-none")
-        // ball.setAttribute("src", "../img/baseball faster.gif")
-        // ball.style.width = "60px"
         music.list[music.rNumber].volume = 0.2
         if(playerA.score==3){
             // player1Stat.textContent = "win"
             // player2Stat.textContent = "lose"
-            // player1Stat.classList.remove("d-none")
-            // player2Stat.classList.remove("d-none")
-            // soundEffect.nuclearAlarm.play()
             playerA.score = 0
             playerB.score = 0
 
         }else if(playerB.score==3){
             // player1Stat.textContent = "lose"
             // player2Stat.textContent = "win"
-            // player1Stat.classList.remove("d-none")
-            // player2Stat.classList.remove("d-none")
-            // soundEffect.nuclearAlarm.play()
             playerA.score = 0
             playerB.score = 0
         }
@@ -129,16 +119,16 @@ export const game = {
     changeScene() {
         if (this.hits > 10&&this.hits<20){
         
-        music.list[music.rNumber].volume = 0.4
-        soundEffect.crowdSound(1)
-        return {sprite:GIF_DATA[5],size:100}
+            music.list[music.rNumber].volume = 0.4
+            soundEffect.crowdSound(1)
+            return {sprite:GIF_DATA[5],size:100}
         }
-        else if(this.hits > 20){
-        
-        
-        music.list[music.rNumber].volume = 0.6
-        soundEffect.crowdSound(2)
-        return {sprite:GIF_DATA[6],size:100}
+        else if(this.hits >= 20){
+
+            
+            music.list[music.rNumber].volume = 0.6
+            soundEffect.crowdSound(2)
+            return {sprite:GIF_DATA[6],size:100}
         }else{
             return {sprite:GIF_DATA[4],size:60}
         }

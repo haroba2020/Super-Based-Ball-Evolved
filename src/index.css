@@ -106,6 +106,7 @@ body{
 }
 .flip{
   transform: scaleX(-1);
+  size: 500px;
 }
 .baseball{
   position: absolute;

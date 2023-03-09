@@ -16,7 +16,7 @@ import {useRef, useEffect, useState} from "react"
         },
         aHitStart(location) {
             console.log(location + "A hit")
-            if (location < 50 && location > 15) {
+            if (location < 45 && location > 15) {
                 soundEffect.hitBall()
                 game.startGame()
                 game.location = 20
@@ -53,19 +53,20 @@ import {useRef, useEffect, useState} from "react"
         },
         bhitStart(location) {
             console.log(location + "b hit")
-            if (location > 50 && location < 75) {
-                setTimeout(() => {
-                    playerB.bhitFinish()
-                }, game.velocity * 250)
+            if (location > 55 && location < 85) {
                 soundEffect.hitBall()
                 game.location = 77
                 game.pause = true
-            
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                    resolve(playerB.bhitFinish())
+                    }, game.velocity * 250)
+                })
             }
         },
         bhitFinish() {
-            game.hit();
             game.ballDirection = false
             game.pause = false
+            return game.hit();
         }
     }
