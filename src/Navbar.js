@@ -2,15 +2,11 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     return (  
-        <nav className="navbar">
-            <h1>SUPER BASED BALL </h1>
-            <h2></h2>
-            <div className="links">
-                <Link to="/">Home</Link>
-                <Link to="/play">Play</Link>
-            </div>
-        </nav>
+        <div classID="navbar">
+            <Link to="/about"><h1 className="nav-element">About Us</h1></Link>
+            <Link to="/"><h1 className="nav-element">Super BasedBall Evolved</h1></Link>
+            <Link to="/play"><h1 className="nav-element">Play Now</h1></Link>
+        </div>
     );
 }
- 
 export default Navbar;

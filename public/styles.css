@@ -6,18 +6,19 @@ body {
 }
 
 .center-element {
-    font-family: 'Montserrat', sans-serif;
     text-align: center;
 }
 
 .large-font {
     font-size: 200%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #navbar {
     background-color: rgb(188, 221, 250);
     position: fixed;
     overflow: hidden;
+    top: 0;
     text-align: center;
     width: 100%;
     z-index: 1;
@@ -118,5 +119,35 @@ body {
     to {opacity: 1}
 }
 
-/* Footer */
+/* Contact Page */
 
+#what-is-sbbe-container {
+    margin-top: 8% !important;
+    width: 50%;
+    margin: auto;
+}
+
+#what-is-sbbe-container.card {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+  
+#obama-img {
+    flex: 0;
+}
+  
+.card-body {
+    flex: 1;
+    padding: 20px;
+}
+  
+ #what-is-sbbe-header {
+    margin-top: 0;
+}
+  
+ #what-is-sbbe-paragraph {
+    font-size: 110%;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 0;
+}
