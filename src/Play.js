@@ -50,7 +50,7 @@ const Play = () => {
 
         requestRef.current = requestAnimationFrame(updateBallState);
     };
-    function handleSprite(size, sprite, direction) {
+    function handleSprite(size, sprite, direction){
         setBallSize(size)
         setBallSprite(sprite)
         if (direction) {
