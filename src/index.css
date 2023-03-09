@@ -18,7 +18,7 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-#navbar {
+.navbar {
   background-color: rgb(188, 221, 250);
   position: fixed;
   overflow: hidden;
@@ -156,39 +156,8 @@ body {
   margin-bottom: 0;
 }
 
-* {
-  margin: 0;
-  padding: 0 !important;
-  font-family: "Quicksand";
-  color: #333;
-  box-sizing: border-box; 
-}
-
-.navbar {
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
-}
-.navbar h1 {
-  color: #f1356d;
-}
-.navbar .links {
-  margin-left: auto;
-}
-.navbar a {
-  margin-left: 16px;
-  text-decoration: none;
-  padding: 6px;
-}
-.navbar a:hover {
-  color: #f1356d;
-}
-
 /* create new blog form */
-.create {
+/* .create {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
@@ -272,4 +241,4 @@ body{
 .gameFinal{
   margin-top: 10px;
   font-size: 80px;
-}
+} */
