@@ -57,9 +57,6 @@ const Play = () => {
             setBallDirection('flip')
         } else {
             setBallDirection(' ')
-            console.log(ballDirection)
-            console.log('set niop')
-
         }
 
     }
@@ -67,8 +64,6 @@ const Play = () => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
     }, []);
-    const element = <h1>Hello world</h1>
-    console.log(element)
     useEffect(() => {
         ballStateRef.current = ballState;
     }, [ballState]);

@@ -9,16 +9,12 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path={"/index"}>
-            <Navbar/>
-            <Main/>
+          <Route path={"/play"}>
+            <Play/>
           </Route>
           <Route path={"/about"}>
             <Navbar/>
             <About/>
-          </Route>
-          <Route path={"/play"}>
-            <Play/>
           </Route>
           <Route path="/">
             <Navbar/>

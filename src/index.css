@@ -10,11 +10,12 @@ body {
 }
 
 .center-element {
+  margin-top: 75px;
   text-align: center;
 }
 
 .large-font {
-  font-size: 2.25rem;
+  font-size: 2.4rem;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -38,13 +39,13 @@ body {
   padding-right: 150px;
   text-align: center;
   text-decoration: none;
-  transition: transform .2s;
+  transition: transform 0.2s;
   font-weight: bold;
 }
 
 .nav-element:hover {
   font-weight: bold;
-  transform: scale(1.5);
+  transform: scale(1.25);
 }
 
 /* Carousel */
@@ -127,19 +128,19 @@ body {
 
 /* Contact Page */
 
-#what-is-sbbe-container {
+.what-is-sbbe-container {
   margin-top: 8% !important;
-  width: 50%;
+  width: 1200px;
   margin: auto;
 }
 
-#what-is-sbbe-container.card {
+.what-is-sbbe-container.card {
   display: flex;
   flex-direction: row;
   overflow: hidden;
 }
 
-#obama-img {
+.obama-img {
   flex: 0;
 }
 
@@ -148,18 +149,18 @@ body {
   padding: 20px;
 }
 
-#what-is-sbbe-header {
+.what-is-sbbe-header {
   margin-top: 0;
 }
 
-#what-is-sbbe-paragraph {
-  font-size: 110%;
+.what-is-sbbe-paragraph {
+  font-size: 1.6rem;
   font-family: 'Montserrat', sans-serif;
   margin-bottom: 0;
 }
 
 /* create new blog form */
-/* .create {
+.create {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
@@ -193,9 +194,6 @@ body {
   height: 100px;
 }
 
-body{
-  background-color: purple;
-}
 .title{
   font-size: 100px;
 }
@@ -244,4 +242,4 @@ body{
 .gameFinal{
   margin-top: 10px;
   font-size: 80px;
-} */
+}
