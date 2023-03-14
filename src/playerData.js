@@ -1,5 +1,5 @@
-import {game, soundEffect, music} from './game'
-import {useRef, useEffect, useState} from "react"
+import {game, soundEffect, } from './game'
+// import {useRef, useEffect, useState} from "react"
 
     export const playerA = {
         cooldown: false,
@@ -15,10 +15,10 @@ import {useRef, useEffect, useState} from "react"
             }
         },
         aHitStart(location) {
-            console.log(location + "A hit")
-            if (location < 45 && location > 15) {
+            //detects if ball is within 50 to 15 percent of the screen
+            if (location < 50 && location > 15) {
+
                 soundEffect.hitBall()
-                game.startGame()
                 game.location = 20
                 game.pause = true
                 return new Promise(resolve => {
@@ -52,11 +52,11 @@ import {useRef, useEffect, useState} from "react"
             }
         },
         bhitStart(location) {
-            console.log(location + "b hit")
-            if (location > 55 && location < 85) {
+            if (location > 50 && location < 75) {
                 soundEffect.hitBall()
                 game.location = 77
                 game.pause = true
+                game.ballDirection = false
                 return new Promise(resolve => {
                     setTimeout(() => {
                     resolve(playerB.bhitFinish())

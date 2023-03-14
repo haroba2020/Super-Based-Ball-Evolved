@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Link } from 'react-router-dom'
 import { playerA, playerB } from './playerData'
-import { game, music } from './game'
+import { game } from './game'
 
 export const GIF_DATA = (function () {
     let arr = []
@@ -21,6 +21,7 @@ const Play = () => {
     const [player2, setPlayer2] = useState(GIF_DATA[1]);
     const [ballSprite, setBallSprite] = useState(GIF_DATA[4])
     const [ballSize, setBallSize] = useState(60)
+    const [score, setScore] = useState(0)
     const [ballDirection, setBallDirection] = useState('')
 
     const [player1Stat, setPlayer1Stat] = useState('');
@@ -34,32 +35,51 @@ const Play = () => {
     const updateBallState = (timestamp) => {
         if (!game.pause) {
             const location = ballStateRef.current;
+            const timeElapsed = timestamp - lastTimestampRef.current;
+            const distanceMoved = timeElapsed * game.velocity / 12;
+    
             if (game.ballDirection) {
-                setBallState((prevState) => prevState + game.velocity);
+                setBallState((prevState) => prevState + distanceMoved);
+                console.log(game.ballDirection)
             } else {
-                setBallState((prevState) => prevState - game.velocity);
+                setBallState((prevState) => prevState - distanceMoved);
+                console.log('fuck it we ball')
             }
+    
             if (game.ballOnScreen(location)) {
                 const matchData = game.restartGame()
                 console.log(matchData)
                 setBallState(matchData[0])
                 setBallSprite(matchData[1])
                 setBallSize(matchData[2])
+                if(matchData[3]){
+                    if(matchData[4]){
+                        setPlayer1Stat('win')
+                        setPlayer2Stat('lose')
+                        console.log('player 1 wins')
+                    }else{
+                        setPlayer1Stat('lose')
+                        setPlayer2Stat('win')
+                        console.log('player 2 wins')
+                    }
+                }
             }
         }
-
+    
+        lastTimestampRef.current = timestamp;
         requestRef.current = requestAnimationFrame(updateBallState);
     };
+    
+    let lastTimestampRef = useRef(performance.now());
+    
     function handleSprite(size, sprite, direction){
         setBallSize(size)
         setBallSprite(sprite)
+        setScore(game.hits)
         if (direction) {
             setBallDirection('flip')
         } else {
             setBallDirection(' ')
-            console.log(ballDirection)
-            console.log('set niop')
-
         }
 
     }
@@ -67,8 +87,7 @@ const Play = () => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
     }, []);
-    const element = <h1>Hello world</h1>
-    console.log(element)
+
     useEffect(() => {
         ballStateRef.current = ballState;
     }, [ballState]);
@@ -110,16 +129,15 @@ const Play = () => {
     }, [ballState]);
     return (
         <div className="play">
-            <input type="text" ref={inputRef} value="test" />
             <div className="flex-parent-player">
                 <div className="flex-player gameFinal">
-                    <h1 className="gameFinal play1Stat d-none">{player1Stat}</h1>
+                    <h1 className="gameFinal play1Stat ">{player1Stat}</h1>
                 </div>
                 <div className="text-center white-space">
                     <Link to="/home" className='title'>Exit</Link>
                 </div>
                 <div className="flex-player">
-                    <h1 className="gameFinal play2Stat d-none">{player2Stat}</h1>
+                    <h1 className="gameFinal play2Stat ">{player2Stat}</h1>
                 </div>
             </div>
 
@@ -133,9 +151,9 @@ const Play = () => {
                 </div>
             </div>
             <div className="text-center score">
-                <h1 className="score">0</h1>
+                <h1 className="score">{score}</h1>
             </div>
-            <img className={`baseball ${ballDirection}`} src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
+            <img className={`baseball ${ballDirection}`} alt="ball"  src={ballSprite} style={{ left: ballState + '%', width: ballSize  }} />
         </div>
     );
 }
