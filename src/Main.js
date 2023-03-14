@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
+import { useState } from "react"
 const Main = () => {
+
     return (
     <div className="main"><section className="container">
         <div className="carousel-container">
@@ -27,15 +29,15 @@ const Main = () => {
               </div>
               <div className="text"><p>hva faen man......</p></div>
             </div>
-            {/* <a className="prev" onClick={plusSlides(-1)}>&#10094;</a>
-            <a className="next" onClick={plusSlides(1)}>&#10095;</a> */}
+            {/* <a className="prev" onClick={PlusSlides(-1)}>&#10094;</a>
+            <a className="next" onClick={PlusSlides(1)}>&#10095;</a> */}
         </div>
         <br/>
         <div className="center-element">
-          {/* <span className="dot" onClick="currentSlide(1)"></span>
-          <span className="dot" onClick="currentSlide(2)"></span>
-          <span className="dot" onClick="currentSlide(3)"></span>
-          <span className="dot" onClick="currentSlide(4)"></span> */}
+          {/* <span className="dot" onClick={currentSlide(1)}></span>
+          <span className="dot" onClick={currentSlide(2)}></span>
+          <span className="dot" onClick={currentSlide(3)}></span>
+          <span className="dot" onClick={currentSlide(4)}></span> */}
           <img src="./img/fetchimage.jpg" width="500px" height="500px"/>
         </div>
       </section>
