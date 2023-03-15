@@ -16,7 +16,7 @@ import {game, soundEffect, } from './game'
         },
         aHitStart(location) {
             //detects if ball is within 50 to 15 percent of the screen
-            if (location < 50 && location > 15) {
+            if (location < 35 && location > 15) {
 
                 soundEffect.hitBall()
                 game.location = 20
@@ -26,7 +26,9 @@ import {game, soundEffect, } from './game'
                     resolve(playerA.ahitFinish())
                     }, game.velocity * 250)
                 })
-                }
+            }else{
+                return Promise.resolve(false);
+            }
         },
         ahitFinish() {
             game.ballDirection = true
@@ -52,7 +54,7 @@ import {game, soundEffect, } from './game'
             }
         },
         bhitStart(location) {
-            if (location > 50 && location < 75) {
+            if (location > 65 && location < 85) {
                 soundEffect.hitBall()
                 game.location = 77
                 game.pause = true
@@ -62,6 +64,8 @@ import {game, soundEffect, } from './game'
                     resolve(playerB.bhitFinish())
                     }, game.velocity * 250)
                 })
+            }else{
+                return Promise.resolve(false);
             }
         },
         bhitFinish() {

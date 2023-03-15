@@ -24,26 +24,22 @@ const Play = () => {
     const [score, setScore] = useState(0)
     const [ballDirection, setBallDirection] = useState('')
 
-    const [player1Stat, setPlayer1Stat] = useState('');
-    const [player2Stat, setPlayer2Stat] = useState('');
+    const [player1Stat, setPlayer1Stat] = useState(' ');
+    const [player2Stat, setPlayer2Stat] = useState(' ');
 
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
-    const inputRef = useRef();
 
 
     const updateBallState = (timestamp) => {
         if (!game.pause) {
             const location = ballStateRef.current;
             const timeElapsed = timestamp - lastTimestampRef.current;
-            const distanceMoved = timeElapsed * game.velocity / 12;
-    
+            const distanceMoved = timeElapsed * game.velocity / 14;
             if (game.ballDirection) {
                 setBallState((prevState) => prevState + distanceMoved);
-                console.log(game.ballDirection)
             } else {
                 setBallState((prevState) => prevState - distanceMoved);
-                console.log('fuck it we ball')
             }
     
             if (game.ballOnScreen(location)) {
@@ -76,6 +72,8 @@ const Play = () => {
         setBallSize(size)
         setBallSprite(sprite)
         setScore(game.hits)
+        setPlayer1Stat(' ')
+        setPlayer2Stat(' ')
         if (direction) {
             setBallDirection('flip')
         } else {
@@ -86,14 +84,14 @@ const Play = () => {
     useEffect(() => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
-    }, []);
+    });
 
     useEffect(() => {
         ballStateRef.current = ballState;
     }, [ballState]);
     useEffect(() => {
         document.addEventListener("keydown", function (e) {
-            const location = ballStateRef.current;
+            
 
             if (e.key === "d" && playerA.cooldown === false) {
                 setPlayer1(GIF_DATA[2])
@@ -103,9 +101,13 @@ const Play = () => {
                     playerA.switchCooldown()
                 }, 1000)
                 setTimeout(() => {
+                    const location = ballStateRef.current;
                     playerA.aHitStart(location).then((value) => {
-                        console.log(value)
-                        handleSprite(value.size, value.sprite, true)
+                        if(value){
+                            handleSprite(value.size, value.sprite, true)
+                            }else{
+                            console.log('u missed lmao')
+                        }
                     })
                 }, 300)
 
@@ -117,8 +119,13 @@ const Play = () => {
                     playerB.switchCooldown()
                 }, 1000)
                 setTimeout(() => {
+                    const location = ballStateRef.current;
                     playerB.bhitStart(location).then((value) => {
+                        if(value){
                         handleSprite(value.size, value.sprite, false)
+                        }else{
+                            console.log('u missed lmao')
+                        }
                     })
                 }, 300)
             } else if (e.key === " ") {
@@ -126,7 +133,7 @@ const Play = () => {
                 game.restartGame()
             }
         });
-    }, [ballState]);
+    }, []);
     return (
         <div className="play">
             <div className="flex-parent-player">
