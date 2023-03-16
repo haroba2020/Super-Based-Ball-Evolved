@@ -125,10 +125,5 @@ export const game = {
         }else{
             return {sprite:GIF_DATA[4],size:60}
         }
-    },
-    startGame(){
-        if( this.hit === 0){
-           game.pause = false
-        }
     }
 }

@@ -5,21 +5,21 @@ import {game, soundEffect, } from './game'
         cooldown: false,
         score:0,
 
+        //A method used to switch cooldown.
         switchCooldown() {
-            if (typeof (this.cooldown) == "boolean") {
-                if (this.cooldown) {
-                    this.cooldown = false;
-                } else {
-                    this.cooldown = true;
-                }
+            if (this.cooldown) {
+                this.cooldown = false;
+            } else {
+                this.cooldown = true;
             }
         },
+
+        //a hit start is used as the start sequence of hitting the ball.It detects the ball and temporaraly pauses the ball, A fast ball gives a longer pause.
         aHitStart(location) {
             //detects if ball is within 50 to 15 percent of the screen
             if (location < 35 && location > 15) {
 
                 soundEffect.hitBall()
-                game.location = 20
                 game.pause = true
                 return new Promise(resolve => {
                     setTimeout(() => {
@@ -27,10 +27,12 @@ import {game, soundEffect, } from './game'
                     }, game.velocity * 250)
                 })
             }else{
+                //returns a promise with the value false so that it can be handled properly 
                 return Promise.resolve(false);
             }
         },
         ahitFinish() {
+            //Unpauses the ball and calls the hit function
             game.ballDirection = true
             game.pause = false
             return game.hit();
@@ -39,7 +41,7 @@ import {game, soundEffect, } from './game'
 
 
 
-    //methods and varibles for player B
+    //methods and varibles for player B instead of player A
      export const playerB = {
         cooldown: false,
         score:0,

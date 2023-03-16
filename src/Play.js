@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { playerA, playerB } from './playerData'
 import { game } from './game'
 
+//Exports all the gifs into a variable.
 export const GIF_DATA = (function () {
     let arr = []
     for (let i = 1; i <= 7; i++) {
@@ -15,6 +16,8 @@ export const GIF_DATA = (function () {
 
 const Play = () => {
 
+
+    //useStates used to change sprites and the DOM.
     const [ballState, setBallState] = useState(20);
 
     const [player1, setPlayer1] = useState(GIF_DATA[0]);
@@ -35,7 +38,8 @@ const Play = () => {
         if (!game.pause) {
             const location = ballStateRef.current;
             const timeElapsed = timestamp - lastTimestampRef.current;
-            const distanceMoved = timeElapsed * game.velocity / 14;
+            
+            const distanceMoved = timeElapsed * game.velocity / 14; //Divides game velocity so that the ball moves slower, this is easily adjustable
             if (game.ballDirection) {
                 setBallState((prevState) => prevState + distanceMoved);
             } else {
@@ -43,6 +47,7 @@ const Play = () => {
             }
     
             if (game.ballOnScreen(location)) {
+                //Get values from the reset game function and handles theme, while reseting other values.
                 const matchData = game.restartGame()
                 console.log(matchData)
                 setBallState(matchData[0])
@@ -61,13 +66,14 @@ const Play = () => {
                 }
             }
         }
-    
+        //Makes updateBallState function run every frame
         lastTimestampRef.current = timestamp;
         requestRef.current = requestAnimationFrame(updateBallState);
     };
-    
+    //makes the frames the same for each computer
     let lastTimestampRef = useRef(performance.now());
-    
+
+    //A function that makes sure all the sprites are correct.
     function handleSprite(size, sprite, direction){
         setBallSize(size)
         setBallSprite(sprite)
@@ -81,26 +87,31 @@ const Play = () => {
         }
 
     }
+    //idk something that makes the values update in request animation frame.
     useEffect(() => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
     });
-
+    //always sets ballStateRef to the current version of ballState so that it's updated whenever you call it
     useEffect(() => {
         ballStateRef.current = ballState;
     }, [ballState]);
+    //A event listener inside a useEffect so thats not rendered each time the ballState gets updated, this is good for performance.
     useEffect(() => {
         document.addEventListener("keydown", function (e) {
-            
-
             if (e.key === "d" && playerA.cooldown === false) {
                 setPlayer1(GIF_DATA[2])
+
+                //Switches the cooldown so that you can't spam the ball and a setTimeout to make sure that it's switches back after a second passes
                 playerA.switchCooldown();
                 setTimeout(() => {
                     setPlayer1(GIF_DATA[0])
                     playerA.switchCooldown()
                 }, 1000)
+
+                // A setimeout that delays the hit by 300 miliseconds
                 setTimeout(() => {
+                    //Get the current value of ballState and pass it into aHitStart and handle the values returned
                     const location = ballStateRef.current;
                     playerA.aHitStart(location).then((value) => {
                         if(value){
@@ -111,6 +122,7 @@ const Play = () => {
                     })
                 }, 300)
 
+            // basically the same code but with player B instead of player A
             } else if (e.key === "k" && playerB.cooldown === false) {
                 setPlayer2(GIF_DATA[3])
                 playerB.switchCooldown();
