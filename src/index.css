@@ -48,6 +48,10 @@ body {
   transform: scale(1.25);
 }
 
+.small-margin {
+  margin-top: 25px;
+}
+
 /* Carousel */
 
 .slideshow-container {
@@ -62,8 +66,8 @@ body {
 
 .prev, .next {
   cursor: pointer;
-  position: absolute;
-  top: 40%;
+  position: fixed;
+  top: 43%;
   margin-top: -22px;
   padding: 16px;
   color: white;
@@ -98,7 +102,7 @@ body {
 .numbertext {
   color: #f2f2f2;
   font-size: 12px;
-  padding-top: 7%;
+  padding-top: 2%;
 }
 
 .dot {

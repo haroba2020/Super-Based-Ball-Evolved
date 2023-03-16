@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Play from './Play';
 import Main from "./Main";
 import About from "./About";
+import Menu from "./Menu";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
           <Route path={"/about"}>
             <Navbar/>
             <About/>
+          </Route>
+          <Route path={"/menu"}>
+            <Menu/>
           </Route>
           <Route path="/">
             <Navbar/>
