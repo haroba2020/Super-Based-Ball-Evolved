@@ -9,13 +9,7 @@ export const GIF_DATA = (function () {
     return arr
 })()
 
-const player1 = document.querySelector(".p1")
-const player2 = document.querySelector(".p2")
-const ball = document.querySelector(".baseball")
-const player1Stat = document.querySelector(".play1Stat")
-const player2Stat = document.querySelector(".play2Stat")
-console.log(player1Stat)
-//object to store music data in
+
 
 export const music = {
     rNumber:Math.floor(Math.random() * 5),
@@ -34,22 +28,19 @@ export const soundEffect = {
     hitBallBase: new Audio("/soundEffects/1.mp3"),
     hardHits: [new Audio("/soundEffects/2.mp3"), new Audio("/soundEffects/3.mp3")],
     crowdCheer: [new Audio("/soundEffects/4.mp3"), new Audio("/soundEffects/5.mp3")],
-    nuclearAlarm: new Audio("/soundEffects/6.mp3"),
+    // Plays a hit sound effect based on direction and how many hit's have been fired so far.
     hitBall() {        
-        const rNumber = Math.floor(Math.random() * 1)+1
         if (game.hits < 10) {
                 this.hitBallBase.play()
-            // this.hitBallBase.play()
         } else if (game.hits > 9) {
             if(game.ballDirection){
             this.hardHits[0].play()
-            //    console.log('hard hit 1 fired')
             }else{
             this.hardHits[1].play() 
-                // console.log('hard hit 2 fired')
             }
         }
     },
+    // Plays either crowdCheer sound effect 1 or 2 based on the argument.
     crowdSound(crowd){
         if(crowd===1){
             this.crowdCheer[0].play()
@@ -101,19 +92,21 @@ export const game = {
         this.location = 20
         this.pause = true
         music.list[music.rNumber].volume = 0.2
-        if(playerA.score==3){
+        const returning = [this.location, GIF_DATA[4], 60]
+        if(playerA.score===3){
             // player1Stat.textContent = "win"
             // player2Stat.textContent = "lose"
             playerA.score = 0
             playerB.score = 0
-
-        }else if(playerB.score==3){
+            returning.push(true, true)
+        }else if(playerB.score===3){
             // player1Stat.textContent = "lose"
             // player2Stat.textContent = "win"
             playerA.score = 0
             playerB.score = 0
+            returning.push(true, false)
         }
-        return [this.location, GIF_DATA[4], 60]
+        return returning
     },
     // method that changes the scene base on how many hits have been fired
     changeScene() {
@@ -132,11 +125,5 @@ export const game = {
         }else{
             return {sprite:GIF_DATA[4],size:60}
         }
-    },
-    startGame(){
-        if( this.hit === 0){
-           game.pause = false 
-        }
     }
 }
-        
