@@ -2,37 +2,161 @@
 
 /* base styles */
 
+/* Navbar */
 
-
-* {
+body {
+  background-color: rgb(216, 150, 255);
   margin: 0;
-  padding: 0 !important;
-  font-family: "Quicksand";
-  color: #333;
-  box-sizing: border-box; 
+}
+
+.center-element {
+  margin-top: 75px;
+  text-align: center;
+}
+
+.large-font {
+  font-size: 2.4rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
+  background-color: rgb(188, 221, 250);
+  position: fixed;
+  display: block;
+  overflow: hidden;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
 }
-.navbar h1 {
-  color: #f1356d;
-}
-.navbar .links {
-  margin-left: auto;
-}
-.navbar a {
-  margin-left: 16px;
+
+.nav-element {
+  color: blue;
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  padding-left: 150px;
+  padding-right: 150px;
+  text-align: center;
   text-decoration: none;
-  padding: 6px;
+  transition: transform 0.2s;
+  font-weight: bold;
 }
-.navbar a:hover {
-  color: #f1356d;
+
+.nav-element:hover {
+  font-weight: bold;
+  transform: scale(1.25);
+}
+
+/* Carousel */
+
+.slideshow-container {
+  display: block;
+  max-width: 100px;
+  margin: auto;
+}
+
+.mySlides {
+  display: none;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+.next {
+  margin-left: 48%;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  margin-left: 18%;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.text {
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding-top: 7%;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: black;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: yellow;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.2s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* Contact Page */
+
+.what-is-sbbe-container {
+  margin-top: 8% !important;
+  width: 1200px;
+  margin: auto;
+}
+
+.what-is-sbbe-container.card {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.obama-img {
+  flex: 0;
+}
+
+.card-body {
+  flex: 1;
+  padding: 20px;
+}
+
+.what-is-sbbe-header {
+  margin-top: 0;
+}
+
+.what-is-sbbe-paragraph {
+  font-size: 1.6rem;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 0;
 }
 
 /* create new blog form */
@@ -70,9 +194,6 @@
   height: 100px;
 }
 
-body{
-  background-color: purple;
-}
 .title{
   font-size: 100px;
 }
