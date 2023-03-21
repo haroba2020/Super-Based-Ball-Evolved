@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const authController = require('../authControllers/authController');
+const controller = require('../controller/controller');
 
 router = Router()
 
-router.post()
+router.post('/make-stats', controller.stats_post)
 
 module.exports = router
