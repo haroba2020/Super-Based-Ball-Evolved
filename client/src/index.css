@@ -5,132 +5,41 @@
 /* Navbar */
 
 body {
-  background-color: rgb(216, 150, 255);
+  background-color: black;
   margin: 0;
 }
 
-.center-element {
-  text-align: center;
+@font-face {
+  font-family: "Font Name";
+  src: url("../public/fonts/streetfighter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.large-font {
-  font-size: 2.4rem;
-  font-family: 'Montserrat', sans-serif;
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  list-style: none; /* Removes bullet points */
+  margin-top: 170px;
 }
-
-.navbar {
-  background-color: rgb(188, 221, 250);
-  position: fixed;
-  display: block;
-  overflow: hidden;
-  top: 0;
-  text-align: center;
-  width: 100%;
-  z-index: 1;
-}
-
-.nav-element {
-  color: blue;
-  display: inline-block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.5rem;
-  padding-left: 150px;
-  padding-right: 150px;
-  text-align: center;
+a{
+  color: #804d47;
   text-decoration: none;
-  transition: transform 0.2s;
-  font-weight: bold;
+}
+.list li{
+  margin: 5px;
+  font-size: 30px;
+  color: #804d47;
+  font-family: "Font Name", sans-serif;
+  letter-spacing: 0.1em;
+  font-style: none;
 }
 
-.nav-element:hover {
-  font-weight: bold;
-  transform: scale(1.25);
-}
-
-.small-margin {
-  margin-top: 25px;
-}
-
-/* Carousel */
-
-.carousel-margin {
-  margin-top: 75px;
-}
-
-.slideshow-container {
-  display: block;
-  max-width: 100px;
-  margin: auto;
-}
-
-.mySlides {
-  display: none;
-}
-
-.prev, .next {
-  cursor: pointer;
-  position: fixed;
-  top: 43%;
-  margin-top: -22px;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-}
-
-.next {
-  margin-left: 48%;
-  border-radius: 3px 0 0 3px;
-}
-
-.prev {
-  margin-left: 18%;
-  border-radius: 3px 0 0 3px;
-}
-
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-.text {
-  font-size: 15px;
-  font-family: 'Montserrat', sans-serif;
-  width: 100%;
-  text-align: center;
-  color: black;
-}
-
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding-top: 2%;
-}
-
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: black;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: yellow;
-}
-
-.fade {
-  animation-name: fade;
-  animation-duration: 1.2s;
-}
-
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+.navbar img{
+  width: 1000px;
+  padding: 10px;
 }
 
 /* Contact Page */
@@ -239,7 +148,7 @@ body {
 .baseball{
   position: absolute;
   width: 60px;
-  top: 60%;
+  top: 400px;
   left: 20%;
   transition: left 20ms linear;
 }
