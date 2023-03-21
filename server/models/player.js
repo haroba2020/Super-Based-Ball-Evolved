@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const playerSchema = mongoose.Schema({
+  // ID
+  id: {
+    type: String,
+  },
   // Login
   email: {
     type: String,
