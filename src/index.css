@@ -10,7 +10,6 @@ body {
 }
 
 .center-element {
-  margin-top: 75px;
   text-align: center;
 }
 
@@ -53,6 +52,10 @@ body {
 }
 
 /* Carousel */
+
+.carousel-margin {
+  margin-top: 75px;
+}
 
 .slideshow-container {
   display: block;
@@ -246,4 +249,19 @@ body {
 .gameFinal{
   margin-top: 10px;
   font-size: 80px;
+}
+
+/* Menu Page */
+
+.sbbe-logo-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.menu-auth {
+  
+}
+
+.menu-auth:hover {
+  cursor: pointer;
 }

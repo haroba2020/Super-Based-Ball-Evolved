@@ -54,32 +54,32 @@ const Main = () => {
       <section className="container">
         <div className="carousel-container">
           <div className="mySlides fade">
-            <div className="numbertext center-element">
-              <img src="./img/1.jpg" width="500px" height="500px" />
+            <div className="numbertext center-element carousel-margin">
+              <img src="./img/1.jpg" width="500px" height="500px" alt="placeholder"/>
             </div>
             <div className="text">
               <p>problem??</p>
             </div>
           </div>
           <div className="mySlides fade">
-            <div className="numbertext center-element">
-              <img src="./img/2.jpg" width="500px" height="500px" />
+            <div className="numbertext center-element carousel-margin">
+              <img src="./img/2.jpg" width="500px" height="500px" alt="placeholder"/>
             </div>
             <div className="text">
               <p>hmmmmmm</p>
             </div>
           </div>
           <div className="mySlides fade">
-            <div className="numbertext center-element">
-              <img src="./img/3.jpg" width="500px" height="500px"/>
+            <div className="numbertext center-element carousel-margin">
+              <img src="./img/3.jpg" width="500px" height="500px" alt="placeholder"/>
             </div>
             <div className="text">
               <p>LMAOOOOOOOOOOOOOOOOOOOOOOOOOOOO</p>
             </div>
           </div>
           <div className="mySlides fade">
-            <div className="numbertext center-element">
-              <img src="./img/4.jpg" width="500px" height="500px" />
+            <div className="numbertext center-element carousel-margin">
+              <img src="./img/4.jpg" width="500px" height="500px" alt="placeholder"/>
             </div>
             <div className="text">
               <p>hva faen man......</p>
