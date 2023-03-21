@@ -1,24 +1,16 @@
-const express = require("express");
-const mongoose = require('mongoose');
-const routes = require('./routes/route')
-const loginRoutes = require('./routes/login')
+import express from "express";
+import mongoose from "mongoose";
+import { DB_URI, PORT } from "./constants.js";
 
-const PORT = process.env.PORT || 3001;
+// Routers
+import accountRouter from "./routes/account.js";
 
-
+await mongoose.connect(DB_URI);
 
 const app = express();
 
-app.use(express.json())
+// Routes
+app.use(accountRouter);
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
-  });
-
-  const dbURI = 'mongodb+srv://CyberBoarBot:testpass@superbasedballdb.sdfo5br.mongodb.net/SBBE?retryWrites=true&w=majority'
-  mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => app.listen(PORT))
-  .catch((err)=> console.log(err))
-
-  app.use(routes);
-  app.use(loginRoutes);
+console.log(`Listening on http://0.0.0.0:${PORT}/`);
+app.listen(PORT);
