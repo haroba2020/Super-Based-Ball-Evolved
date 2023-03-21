@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const routes = require('./routes/route')
+const loginRoutes = require('./routes/login')
 
 const PORT = process.env.PORT || 3001;
 
@@ -20,3 +21,4 @@ app.get("/api", (req, res) => {
   .catch((err)=> console.log(err))
 
   app.use(routes);
+  app.use(loginRoutes);
