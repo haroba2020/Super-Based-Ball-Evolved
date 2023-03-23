@@ -10,8 +10,20 @@ body {
 }
 
 @font-face {
-  font-family: "Font Name";
+  font-family: "streetfight";
   src: url("../public/fonts/streetfighter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "retro";
+  src: url("../public/fonts/retro.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "score";
+  src: url("../public/fonts/score.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -24,15 +36,21 @@ body {
   list-style: none; /* Removes bullet points */
   margin-top: 170px;
 }
-a{
+.list a{
   color: #804d47;
   text-decoration: none;
 }
+
+.list a:hover{
+  color: #ae655d;
+  text-decoration: none;
+}
+
 .list li{
   margin: 5px;
   font-size: 30px;
   color: #804d47;
-  font-family: "Font Name", sans-serif;
+  font-family: "retro", sans-serif;
   letter-spacing: 0.1em;
   font-style: none;
 }
@@ -42,104 +60,33 @@ a{
   padding: 10px;
 }
 
-/* Contact Page */
-
-.what-is-sbbe-container {
-  margin-top: 8% !important;
-  width: 1200px;
-  margin: auto;
-}
-
-.what-is-sbbe-container.card {
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-}
-
-.obama-img {
-  flex: 0;
-}
-
-.card-body {
-  flex: 1;
-  padding: 20px;
-}
-
-.what-is-sbbe-header {
-  margin-top: 0;
-}
-
-.what-is-sbbe-paragraph {
-  font-size: 1.6rem;
-  font-family: 'Montserrat', sans-serif;
-  margin-bottom: 0;
-}
-
-/* create new blog form */
-.create {
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-}
-.create label {
-  text-align: left;
-  display: block;
-}
-.create h2 {
-  font-size: 20px;
-  color: #f1356d;
-  margin-bottom: 30px;
-}
-.create input, .create textarea, .create select {
-  width: 100%;
-  padding: 6px 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  display: block;
-}
-.create button {
-  background: #f1356d;
-  color: #fff;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.create textarea{
-  height: 100px;
+.play{
+  height: 100vh;
 }
 
 .title{
   font-size: 100px;
 }
 
-.flex-child-element {
-  flex: 1;
-  margin: 10px;
-  align-items: center;
-}
-.flex-parent-element {
-  display: flex;
-  width: 50%;
-  margin: auto;
-}
-.select{
-  text-decoration: none;
-  color: lightblue;
-}
-.flex-parent-player {
-  display: flex;
-}
-.flex-player{
-  flex: 1;
-  text-align: center;
-}
-.white-space{
-  flex: 2;
+
+.player-container{
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 250px;
+  width: 100%;
+  background-image: url("../public/background/background7.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Optional styles to adjust spacing between images */
 }
 .player{
-  height: 400px;
+  height: 450px;
+}
+.player1{
+  float: left;
+}
+.player2{
+  float: right;
 }
 .flip{
   transform: scaleX(-1);
@@ -148,12 +95,18 @@ a{
 .baseball{
   position: absolute;
   width: 60px;
-  top: 400px;
+  top: 450px;
   left: 20%;
   transition: left 20ms linear;
 }
 .score{
-  font-size:60px;
+  font-size:120px;
+  color: rgb(255, 255, 255);
+  font-family: 'score';
+  position: absolute;
+  left: 48%;
+  right: 52%;
+  bottom: 75%;
 }
 .gameFinal{
   margin-top: 10px;

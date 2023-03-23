@@ -148,7 +148,7 @@ const Play = () => {
     }, []);
     return (
         <div className="play">
-            <div className="flex-parent-player">
+            {/* <div className="flex-parent-player">
                 <div className="flex-player gameFinal">
                     <h1 className="gameFinal play1Stat ">{player1Stat}</h1>
                 </div>
@@ -158,16 +158,11 @@ const Play = () => {
                 <div className="flex-player">
                     <h1 className="gameFinal play2Stat ">{player2Stat}</h1>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="flex-parent-player pt-5">
-                <div className="flex-player">
-                    <img src={player1} className='flip player' alt="player1" />
-                </div>
-                <div className="white-space"></div>
-                <div className="flex-player">
-                    <img src={player2} className=' player' alt="player2" />
-                </div>
+            <div className="player-container">
+                <img src={player1} className='flip player player1' alt="player1" />
+                <img src={player2} className=' player player2' alt="player2" />
             </div>
             <div className="text-center score">
                 <h1 className="score">{score}</h1>
