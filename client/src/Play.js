@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react"
-import { Link } from 'react-router-dom'
 import { playerA, playerB } from './playerData'
 import { game } from './game'
 
@@ -98,10 +97,12 @@ const Play = () => {
     }, [ballState]);
     //A event listener inside a useEffect so thats not rendered each time the ballState gets updated, this is good for performance.
     useEffect(() => {
+        console.log('use effect ran!')
+        console.log(GIF_DATA)
         document.addEventListener("keydown", function (e) {
             if (e.key === "d" && playerA.cooldown === false) {
                 setPlayer1(GIF_DATA[2])
-
+                console.log('u pressed a button lmao')
                 //Switches the cooldown so that you can't spam the ball and a setTimeout to make sure that it's switches back after a second passes
                 playerA.switchCooldown();
                 setTimeout(() => {
@@ -148,26 +149,12 @@ const Play = () => {
     }, []);
     return (
         <div className="play">
-            {/* <div className="flex-parent-player">
-                <div className="flex-player gameFinal">
-                    <h1 className="gameFinal play1Stat ">{player1Stat}</h1>
-                </div>
-                <div className="text-center white-space">
-                    <Link to="/home" className='title'>Exit</Link>
-                </div>
-                <div className="flex-player">
-                    <h1 className="gameFinal play2Stat ">{player2Stat}</h1>
-                </div>
-            </div> */}
-
             <div className="player-container">
                 <img src={player1} className='flip player player1' alt="player1" />
                 <img src={player2} className=' player player2' alt="player2" />
-            </div>
-            <div className="text-center score">
+                <img className={`baseball ${ballDirection}`} alt="ball"  src={ballSprite} style={{ left: ballState + '%', width: ballSize  }} />
                 <h1 className="score">{score}</h1>
             </div>
-            <img className={`baseball ${ballDirection}`} alt="ball"  src={ballSprite} style={{ left: ballState + '%', width: ballSize  }} />
         </div>
     );
 }
