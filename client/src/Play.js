@@ -37,14 +37,14 @@ const Play = () => {
         if (!game.pause) {
             const location = ballStateRef.current;
             const timeElapsed = timestamp - lastTimestampRef.current;
-            
+
             const distanceMoved = timeElapsed * game.velocity / 14; //Divides game velocity so that the ball moves slower, this is easily adjustable
             if (game.ballDirection) {
                 setBallState((prevState) => prevState + distanceMoved);
             } else {
                 setBallState((prevState) => prevState - distanceMoved);
             }
-    
+
             if (game.ballOnScreen(location)) {
                 //Get values from the reset game function and handles theme, while reseting other values.
                 const matchData = game.restartGame()
@@ -52,12 +52,12 @@ const Play = () => {
                 setBallState(matchData[0])
                 setBallSprite(matchData[1])
                 setBallSize(matchData[2])
-                if(matchData[3]){
-                    if(matchData[4]){
+                if (matchData[3]) {
+                    if (matchData[4]) {
                         setPlayer1Stat('win')
                         setPlayer2Stat('lose')
                         console.log('player 1 wins')
-                    }else{
+                    } else {
                         setPlayer1Stat('lose')
                         setPlayer2Stat('win')
                         console.log('player 2 wins')
@@ -73,7 +73,7 @@ const Play = () => {
     let lastTimestampRef = useRef(performance.now());
 
     //A function that makes sure all the sprites are correct.
-    function handleSprite(size, sprite, direction){
+    function handleSprite(size, sprite, direction) {
         setBallSize(size)
         setBallSprite(sprite)
         setScore(game.hits)
@@ -90,7 +90,7 @@ const Play = () => {
     useEffect(() => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
-    });
+    }, [ballState]);
     //always sets ballStateRef to the current version of ballState so that it's updated whenever you call it
     useEffect(() => {
         ballStateRef.current = ballState;
@@ -100,7 +100,7 @@ const Play = () => {
         console.log('use effect ran!')
         console.log(GIF_DATA)
         document.addEventListener("keydown", function (e) {
-            if (e.key === "d" && playerA.cooldown === false) {
+            if (e.key === "d" && !playerA.cooldown) {
                 setPlayer1(GIF_DATA[2])
                 console.log('u pressed a button lmao')
                 //Switches the cooldown so that you can't spam the ball and a setTimeout to make sure that it's switches back after a second passes
@@ -115,16 +115,16 @@ const Play = () => {
                     //Get the current value of ballState and pass it into aHitStart and handle the values returned
                     const location = ballStateRef.current;
                     playerA.aHitStart(location).then((value) => {
-                        if(value){
+                        if (value) {
                             handleSprite(value.size, value.sprite, true)
-                            }else{
+                        } else {
                             console.log('u missed lmao')
                         }
                     })
                 }, 300)
 
-            // basically the same code but with player B instead of player A
-            } else if (e.key === "k" && playerB.cooldown === false) {
+                // basically the same code but with player B instead of player A
+            } else if (e.key === "k" && !playerB.cooldown) {
                 setPlayer2(GIF_DATA[3])
                 playerB.switchCooldown();
                 setTimeout(() => {
@@ -134,9 +134,9 @@ const Play = () => {
                 setTimeout(() => {
                     const location = ballStateRef.current;
                     playerB.bhitStart(location).then((value) => {
-                        if(value){
-                        handleSprite(value.size, value.sprite, false)
-                        }else{
+                        if (value) {
+                            handleSprite(value.size, value.sprite, false)
+                        } else {
                             console.log('u missed lmao')
                         }
                     })
@@ -152,7 +152,7 @@ const Play = () => {
             <div className="player-container">
                 <img src={player1} className='flip player player1' alt="player1" />
                 <img src={player2} className=' player player2' alt="player2" />
-                <img className={`baseball ${ballDirection}`} alt="ball"  src={ballSprite} style={{ left: ballState + '%', width: ballSize  }} />
+                <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
                 <h1 className="score">{score}</h1>
             </div>
         </div>
