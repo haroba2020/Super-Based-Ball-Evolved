@@ -98,6 +98,7 @@ const Play = () => {
     //A event listener inside a useEffect so thats not rendered each time the ballState gets updated, this is good for performance.
     useEffect(() => {
         console.log('use effect ran!')
+        setBallState(20)
         console.log(GIF_DATA)
         document.addEventListener("keydown", function (e) {
             if (e.key === "d" && !playerA.cooldown) {
@@ -114,6 +115,7 @@ const Play = () => {
                 setTimeout(() => {
                     //Get the current value of ballState and pass it into aHitStart and handle the values returned
                     const location = ballStateRef.current;
+                    console.log(location)
                     playerA.aHitStart(location).then((value) => {
                         if (value) {
                             handleSprite(value.size, value.sprite, true)
@@ -149,11 +151,15 @@ const Play = () => {
     }, []);
     return (
         <div className="play">
-            <div className="player-container">
-                <img src={player1} className='flip player player1' alt="player1" />
-                <img src={player2} className=' player player2' alt="player2" />
-                <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
-                <h1 className="score">{score}</h1>
+            <div className="game-container">
+                <div className="player-container">
+                    <img src={player1} className='flip player player1' alt="player1" />
+                    <img src={player2} className=' player player2' alt="player2" />
+                    <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
+                    <h1 className="score">{score}</h1>
+                </div>
+                <h1 className="winloss1">{player1Stat}</h1>
+                <h1 className="winloss2">{player2Stat}</h1>
             </div>
         </div>
     );

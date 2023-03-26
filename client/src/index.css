@@ -68,8 +68,7 @@ body {
   font-size: 100px;
 }
 
-
-.player-container{
+.game-container{
   display: inline-block;
   vertical-align: middle;
   padding-top: 250px;
@@ -82,6 +81,10 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.player-container{
+
 }
 @media screen and (min-width: 1665px) {
   .player-container{
@@ -119,10 +122,26 @@ body {
   right: 52%;
   bottom: 75%;
 }
-.gameFinal{
-  margin-top: 10px;
+
+.winloss1{
+  position: relative;
+  float: left;
+  right: 350px;
   font-size: 80px;
+  bottom: 50px;
+  color: rgb(214, 208, 208);
+  font-family: 'retro';
 }
+.winloss2{
+  float: right;
+  position: relative;
+  left: 350px;
+  font-size: 80px;
+  bottom: 50px;
+  color: rgb(214, 208, 208);
+  font-family: 'retro';
+}
+
 
 /* Menu Page */
 
