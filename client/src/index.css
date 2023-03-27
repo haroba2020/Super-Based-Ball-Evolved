@@ -68,12 +68,13 @@ body {
   font-size: 100px;
 }
 
-.game-container{
+
+.player-container{
   display: inline-block;
   vertical-align: middle;
   padding-top: 250px;
   width: 100%;
-  background-image: url("../public/background/background8.gif");
+  background-image: url("../public/background/background7.gif");
   background-repeat: no-repeat;
   background-size: cover;
   margin: auto; /* center the container horizontally */
@@ -81,10 +82,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.player-container{
-
 }
 @media screen and (min-width: 1665px) {
   .player-container{
@@ -123,25 +120,16 @@ body {
   bottom: 75%;
 }
 
-.winloss1{
-  position: relative;
-  float: left;
-  right: 350px;
-  font-size: 80px;
-  bottom: 50px;
-  color: rgb(214, 208, 208);
-  font-family: 'retro';
+.playerWinStat{
+  font-size:75px;
+  color: rgb(255, 255, 255);
+  font-family: 'score';
+  position: absolute;
+  left: 32%;
+  right: 68%;
+  bottom: 50%;
+  width: 700px;
 }
-.winloss2{
-  float: right;
-  position: relative;
-  left: 350px;
-  font-size: 80px;
-  bottom: 50px;
-  color: rgb(214, 208, 208);
-  font-family: 'retro';
-}
-
 
 /* Menu Page */
 

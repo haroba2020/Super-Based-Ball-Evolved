@@ -15,10 +15,25 @@ const Main = () => {
 MyComponent()
   return (
     <div className="main">
-      <ul className="list">
+      {/* <ul className="list">
         <li><Link to="/play">GAME START</Link></li>
         <li><Link to="/about">ABOUT</Link></li>
-      </ul>
+      </ul> */}
+      <div className="">
+        <img src="" alt="" />
+        <div>
+          <div>
+          
+          </div>
+          <div>
+
+          </div>
+        </div>
+      </div>
+      <div className="">
+        <img src="" alt="" />
+        <img src="" alt="" />
+      </div>
     </div>);
 }
  
