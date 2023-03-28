@@ -12,6 +12,7 @@ wss.on("connection", async function onConnect(ws) {
         data = data.toString("utf-8");
         if (channelId == null) {
             channelId = data;
+            console.log(`Connecting to ${channelId}`);
 
             if (channels[channelId] === undefined) {
                 channels[channelId] = [];
@@ -19,6 +20,7 @@ wss.on("connection", async function onConnect(ws) {
             channels[channelId].push(ws);
             return;
         }
+        console.log(`RTC[${channelId}] -> ${data}`);
         let channel = channels[channelId];
         channel.forEach((otherWs) => {
             otherWs.send(data);
