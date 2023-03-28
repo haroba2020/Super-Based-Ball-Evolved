@@ -15,10 +15,14 @@ const Main = () => {
 MyComponent()
   return (
     <div className="main">
-      {/* <ul className="list">
+      
+      <div className="navbar">
+        <Link className='mx-auto d-block'  to="/"><img src="/img/LOGOTEST.png" alt="test logo" /></Link>
+      </div>      
+      <ul className="list">
         <li><Link to="/play">GAME START</Link></li>
         <li><Link to="/about">ABOUT</Link></li>
-      </ul> */}
+      </ul>
       <div className="">
         <img src="" alt="" />
         <div>

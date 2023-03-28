@@ -80,7 +80,7 @@ export const game = {
         if (location < 0) {
             playerB.score++
             return true
-        }else if(location > 99){
+        }else if(location > 95){
             playerA.score++
             return true
         }
