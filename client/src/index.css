@@ -107,8 +107,7 @@ body {
   position: absolute;
   width: 60px;
   top: 450px;
-  left: 20%;
-  transition: left 20ms linear;
+  /* transition: left 20ms linear; */
 }
 .score{
   font-size:120px;

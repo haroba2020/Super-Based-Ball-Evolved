@@ -227,11 +227,12 @@ const PlayOnline = () => {
                 <div className="player-container">
                     <img src={player1} className='flip player player1' alt="player1" />
                     <img src={player2} className=' player player2' alt="player2" />
-                    <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
+                    <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }}/>
                     <h1 className="score">{score}</h1>
                     <h1 className="playerWinStat">{playerWinStat}</h1>
                 </div>
             </div>}
+            
         </div>
      );
 }
