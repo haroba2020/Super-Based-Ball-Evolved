@@ -122,7 +122,6 @@ const PlayOnline = () => {
 
 
 
-
     const { sendMessage, lastMessage, readyState } = useWebSocket(rtcURL)
     const [hasConnected, setHasConnected] = useState();
     if (!hasConnected && readyState == ReadyState.OPEN) {
