@@ -171,19 +171,6 @@ const PlayOnline = () => {
                 setPlayer1(GIF_DATA[0])
                 playerA.switchCooldown()
                 }, 1000)
-            // A setimeout that delays the hit by 300 miliseconds
-            setTimeout(() => {
-            //Get the current value of ballState and pass it into aHitStart and handle the values returned
-            const location = ballStateRef.current;
-            console.log(location)
-            playerA.aHitStart(location).then((value) => {
-                if (value) {
-                    handleSprite(value.size, value.sprite, true)
-                    } else {
-                    console.log('u missed lmao')
-                    }
-                })
-            }, 300)
         }
         if(data.command === 'aHitFinish'){
             playerA.aHitStart(data.location).then((value) => {
@@ -203,13 +190,6 @@ const PlayOnline = () => {
                 setPlayer2(GIF_DATA[1])
                 playerB.switchCooldown()
             }, 1000)
-            playerB.bhitStart(data.location).then((value) => {
-                if (value) {
-                    handleSprite(value.size, value.sprite, false)
-                } else {
-                    console.log('u missed lmao')
-                }
-            })
         }
         if(data.command === 'bHitFinish'){
             playerB.bhitStart(data.location).then((value) => {
