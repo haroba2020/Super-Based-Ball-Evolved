@@ -1,4 +1,4 @@
-require('dotenv').config({ path: ".env" });
+import dotenv from 'dotenv';
 dotenv.config();
 
 export const REST_PORT = process.env.REST_PORT
