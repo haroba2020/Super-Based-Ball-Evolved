@@ -130,15 +130,23 @@ body {
   width: 700px;
 }
 
+.rooms-container{
+	display: grid;
+	place-items: center
+}
+.rooms-container h1{
+	text-align: center;
+  color: rgb(209, 209, 209);
+}
+.rooms-container .title{
+  font-size: 70px;
+}
+
 /* Menu Page */
 
 .sbbe-logo-container {
   margin-top: 30px;
   text-align: center;
-}
-
-.menu-auth {
-  
 }
 
 .menu-auth:hover {

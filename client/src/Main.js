@@ -22,6 +22,7 @@ MyComponent()
       <ul className="list">
         <li><Link to="/play">GAME START</Link></li>
         <li><Link to="/about">ABOUT</Link></li>
+        <li><Link to="/rooms">Rooms</Link></li>
       </ul>
       <div className="">
         <img src="" alt="" />
