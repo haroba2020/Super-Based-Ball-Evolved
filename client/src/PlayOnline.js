@@ -41,6 +41,7 @@ const PlayOnline = () => {
         if (!game.pause) {
             const location = ballStateRef.current;
             const timeElapsed = timestamp - lastTimestampRef.current;
+            console.log(ballState)
 
             const distanceMoved = timeElapsed * game.velocity / 14; //Divides game velocity so that the ball moves slower, this is easily adjustable
             if (game.ballDirection) {
@@ -224,7 +225,7 @@ const PlayOnline = () => {
                 {((playerReadyA && playerReadyB )) && <h1 onClick={() => startGame()}> START GAME </h1>}
                 <h1></h1>
             </div>}
-            { gameOn && <div className="play">
+            { <div className="play">
                 <div className="player-container">
                     <img src={player1} className='flip player player1' alt="player1" />
                     <img src={player2} className=' player player2' alt="player2" />
