@@ -15,30 +15,33 @@ const Main = () => {
 MyComponent()
   return (
     <div className="main">
-      
-      <div className="navbar">
-        <Link className='mx-auto d-block'  to="/"><img src="/img/LOGOTEST.png" alt="test logo" /></Link>
-      </div>      
-      <ul className="list">
-        <li><Link to="/play">GAME START</Link></li>
-        <li><Link to="/about">ABOUT</Link></li>
-        <li><Link to="/rooms">Rooms</Link></li>
-      </ul>
-      <div className="">
-        <img src="" alt="" />
-        <div>
-          <div>
-          
+      <div className="main-container">
+        <div className="front-left-container">
+          <div className="border-image-container cool-border">
+            <img className="cool-border" src="/img/baseballtrol.png" alt="" />
           </div>
-          <div>
+          <div className="front-div-container">
+            <div className="stats-container cool-border">
+              <ul className="list">
+                <li><Link to="/play">GAME START</Link></li>
+                <li><Link to="/rooms">ROOMS</Link></li>
+                <li><Link to="/about">ABOUT</Link></li>
+              </ul>
+            </div>
+            <div className="skin-container cool-border">
 
+            </div>
           </div>
         </div>
-      </div>
-      <div className="">
-        <img src="" alt="" />
-        <img src="" alt="" />
-      </div>
+        <div className="front-right-container">
+          <div className="video-container cool-border">
+
+          </div>
+          <div className="img-container"></div>
+          <img className="basedball-title" src="/img/SuperBasedBallTitle.png" alt="" />
+          <img className="basedball-info" src="/img/SuperBasedBallInfo.png" alt="" />
+        </div>
+      </div>  
     </div>);
 }
  
