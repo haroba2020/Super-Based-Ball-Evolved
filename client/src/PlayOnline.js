@@ -106,11 +106,19 @@ const PlayOnline = () => {
             console.log(GIF_DATA)
             const handleKeyDown = (e) => {
                 if (e.key === " " && !playerA.cooldown && playerSelect === 'A' ) {
-                    sendMessage(JSON.stringify({command:"aHit"}))
+                    sendMessage(JSON.stringify({command:"aHitStart"}))
+                    setTimeout(()=>{
+                        const location = ballStateRef.current;
+                        sendMessage(JSON.stringify({command:"aHitFinish", location:location}))
+                    },300)
 
                     // basically the same code but with player B instead of player A
                 } else if (e.key === " " && !playerB.cooldown && playerSelect === 'B') {
-                    sendMessage(JSON.stringify({command:"bHit"}))
+                    sendMessage(JSON.stringify({command:"bHitStart"}))
+                    setTimeout(()=>{
+                        const location = ballStateRef.current;
+                        sendMessage(JSON.stringify({command:"bHitFinish", location:location}))
+                    },300)
                 }
             };
             document.addEventListener("keydown", handleKeyDown);
@@ -120,7 +128,6 @@ const PlayOnline = () => {
             };
         }
     }, [gameOn]);
-
 
 
 
@@ -157,7 +164,7 @@ const PlayOnline = () => {
             console.log('THE GAME HAS STARTED')
             setGameOn(true)
         }
-        if(data.command === 'aHit'){
+        if(data.command === 'aHitStart'){
             setPlayer1(GIF_DATA[2])
             //Switches the cooldown so that you can't spam the ball and a setTimeout to make sure that it's switches back after a second passes
             playerA.switchCooldown();
@@ -165,38 +172,37 @@ const PlayOnline = () => {
                 setPlayer1(GIF_DATA[0])
                 playerA.switchCooldown()
                 }, 1000)
-            // A setimeout that delays the hit by 300 miliseconds
-            setTimeout(() => {
-            //Get the current value of ballState and pass it into aHitStart and handle the values returned
-            const location = ballStateRef.current;
-            console.log(location)
-            playerA.aHitStart(location).then((value) => {
-                if (value) {
-                    handleSprite(value.size, value.sprite, true)
-                    } else {
-                    console.log('u missed lmao')
-                    }
-                })
-            }, 300)
         }
-        if(data.command === 'bHit'){
+        if(data.command === 'aHitFinish'){
+            playerA.aHitStart(data.location).then((value) => {
+            console.log(data.location)
+            if (value) {
+                setBallState(data.location)
+                handleSprite(value.size, value.sprite, true)
+                } else {
+                console.log('u missed lmao')
+                }
+            })
+        }
+        if(data.command === 'bHitStart'){
             setPlayer2(GIF_DATA[3])
             playerB.switchCooldown();
             setTimeout(() => {
                 setPlayer2(GIF_DATA[1])
                 playerB.switchCooldown()
             }, 1000)
-            setTimeout(() => {
-                const location = ballStateRef.current;
-                playerB.bhitStart(location).then((value) => {
-                    if (value) {
-                        handleSprite(value.size, value.sprite, false)
-                    } else {
-                        console.log('u missed lmao')
-                    }
-                })
-            }, 300)
         }
+        if(data.command === 'bHitFinish'){
+            playerB.bhitStart(data.location).then((value) => {
+                if (value) {
+                    setBallState(data.location)
+                    handleSprite(value.size, value.sprite, false)
+                } else {
+                    console.log('u missed lmao')
+                }
+            })
+        }
+
         
         if(data.Message){
             console.log(data.Message)
@@ -229,11 +235,12 @@ const PlayOnline = () => {
                 <div className="player-container">
                     <img src={player1} className='flip player player1' alt="player1" />
                     <img src={player2} className=' player player2' alt="player2" />
-                    <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
+                    <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }}/>
                     <h1 className="score">{score}</h1>
                     <h1 className="playerWinStat">{playerWinStat}</h1>
                 </div>
             </div>}
+            
         </div>
      );
 }
