@@ -231,7 +231,7 @@ const PlayOnline = () => {
                 {((playerReadyA && playerReadyB )) && <h1 onClick={() => startGame()}> START GAME </h1>}
                 <h1></h1>
             </div>}
-            { <div className="play">
+            { gameOn && <div className="play">
                 <div className="player-container">
                     <img src={player1} className='flip player player1' alt="player1" />
                     <img src={player2} className=' player player2' alt="player2" />

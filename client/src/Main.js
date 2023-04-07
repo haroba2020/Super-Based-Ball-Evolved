@@ -38,8 +38,8 @@ MyComponent()
 
           </div>
           <div className="img-container"></div>
-          <img className="basedball-title" src="/img/SuperBasedBallTitle.png" alt="" />
-          <img className="basedball-info" src="/img/SuperBasedBallInfo.png" alt="" />
+            <img className="basedball-title" src="/img/SuperBasedBallTitle.png" alt="" />
+            <img className="basedball-info" src="/img/SuperBasedBallInfo.png" alt="" />
         </div>
       </div>  
     </div>);

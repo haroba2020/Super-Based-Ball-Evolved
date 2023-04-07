@@ -124,42 +124,39 @@ body {
 }
 .main-container{
   display: flex;
-  width: 2000px;
+  width: 170vh;
   height: 90vh;
 }
 .front-left-container{
-  margin: 5px;
   height: 98%;
-  width: 1000px;
+  width: 50%;
 }
 .border-image-container{
-  width: 900px;
-  height: 400px;
+  width: 70vh;
+  height: 30vh;
   border-style: solid;
-  border-width: 5px;
-  margin-left: 50px;
-
+  margin-left: 5vh;
 }
 .border-image-container img{
-  width: 900px;
-  height: 400px;
+  width: 70vh;
+  height: 30vh;
 }
 .front-div-container{
-  margin-left: 50px;
-  margin-top: 100px;
-  width: 950px;
-  height: 550px;
+  margin-left: 5vh;
+  margin-top: 10vh;
+  width: 75vh;
+  height: 40vh;
   display: flex;
   justify-content: center;
 }
 .stats-container li{
-  font-size: 50px;
+  font-size: 3.5vh;
   z-index: 1;
 }
 .stats-container{
-  margin-right: 20px;
-  width: 600px;
-  height: 530px;
+  margin-right: 1vh;
+  width: 50vh;
+  height: 48vh;
   color: #804d47;
   font-family: "retro", sans-serif;
   letter-spacing: 0.1em;
@@ -171,7 +168,8 @@ body {
   align-items: center;
   flex-direction: column;
   list-style: none; /* Removes bullet points */
-  margin-top: 70px;
+  margin-top: 5vh;
+  padding: 0px;
 }
 .list a{
   color: #804d47;
@@ -182,26 +180,24 @@ body {
   text-decoration: none;
 }
 .skin-container{
-  width: 350px;
-  height: 530px;
+  width: 40vh;
+  height: 48vh;
   border-style: solid;
-  border-width: 5px;
 }
 .front-right-container{
-  margin: 5px;
-  width: 1000px;
-  height: 1050px;
+
+  height: 98%;
+  width: 50%;
 
 }
 .video-container {
-  width: 960px;
-  height: 550px;
+  width: 85vh;
+  height: 50vh;
   position: relative;
-  border: 5px solid transparent;
 }
 
 .img-container{
-  margin-top: 50px;
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,26 +206,29 @@ body {
 .basedball-title{
   display: block;
   margin: 0 auto;
-  margin-bottom: 15px;
+  margin-bottom: 1.5vh;
+  height: 10vh;
 }
 .basedball-info{
   display: block;
   margin: 0 auto;
+  height: 12vh;
+
 
 }
 .cool-border{
-  border: 5px solid transparent;
+  border: 0.5vh solid transparent;
   position: relative;
 }
 
 .cool-border::before{
   content: "";
   position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border: 5px solid;
+  top: -0.5vh;
+  left: -0.5vh;
+  right: -0.5vh;
+  bottom: -0.5vh;
+  border: 0.5vh solid;
   border-image-source: linear-gradient(320deg, #000000, #c9c7c7);
   border-image-slice: 1;
 }
