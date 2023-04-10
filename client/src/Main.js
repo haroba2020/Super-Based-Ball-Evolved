@@ -29,7 +29,7 @@ MyComponent()
               </ul>
             </div>
             <div className="skin-container cool-border">
-
+              <img src="/img/troll-face.gif" alt="skin" />
             </div>
           </div>
         </div>

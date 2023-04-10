@@ -176,8 +176,8 @@ const PlayOnline = () => {
         if(data.command === 'aHitFinish'){
             playerA.aHitStart(data.location).then((value) => {
             console.log(data.location)
+            setBallState(data.location)
             if (value) {
-                setBallState(data.location)
                 handleSprite(value.size, value.sprite, true)
                 } else {
                 console.log('u missed lmao')
@@ -194,8 +194,8 @@ const PlayOnline = () => {
         }
         if(data.command === 'bHitFinish'){
             playerB.bhitStart(data.location).then((value) => {
+                setBallState(data.location)
                 if (value) {
-                    setBallState(data.location)
                     handleSprite(value.size, value.sprite, false)
                 } else {
                     console.log('u missed lmao')

@@ -106,6 +106,9 @@ body {
 	display: grid;
 	place-items: center
 }
+.rooms-container a{
+  text-decoration: none;
+}
 .rooms-container h1{
 	text-align: center;
   color: rgb(209, 209, 209);
@@ -180,9 +183,12 @@ body {
   text-decoration: none;
 }
 .skin-container{
-  width: 40vh;
+  width: 30vh;
   height: 48vh;
-  border-style: solid;
+}
+.skin-container img{
+  width: 30vh;
+  height: 48vh;
 }
 .front-right-container{
 

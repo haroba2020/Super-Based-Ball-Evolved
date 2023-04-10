@@ -16,18 +16,6 @@ const Rooms = () => {
         const lobby = await response.json();
         mutate([...rooms, lobby])
     }
-
-    
-
-    // useEffect(() => {
-    //     async function gay(){
-    //         console.log('I love men')
-    //         let response = await fetch(`${apiURL}/matchmaking`)
-    //         setRooms(await response.json())
-    //         console.log(rooms)
-    //     }
-    //     gay()
-    // }, [])
     const lobbynameRef = useRef(null)
     return (
         <div className="rooms-container">
