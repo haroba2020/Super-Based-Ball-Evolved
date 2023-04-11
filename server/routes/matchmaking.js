@@ -23,3 +23,18 @@ router.post("/matchmaking", async function createLobby(req, res) {
 router.get("/matchmaking", async function getLobbies(req, res) {
     res.json(matches);
 });
+router.post("/matchmaking/match/:matchId/status", async function updateMatchStatus(req, res) {
+    let { matchId, status } = req.query;
+    
+    if (status === "playing") {
+        let match = matches.filter(match => match.id === matchId)[0];
+        if (match === undefined) {
+            res.status(400).json({detail: "Match not found"});
+            return;
+        }
+        match.playing = true;
+    } else if (status === "done") {
+        matches = matches.filter(match => match.id !== matchId);
+    }
+    res.status(200).send();
+})
