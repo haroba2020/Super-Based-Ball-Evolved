@@ -1,33 +1,33 @@
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import React from "react";
-import Navbar from './Navbar';
 import Play from './Play';
-
-
+import PlayOnline from './PlayOnline';
+import Main from "./Main";
+import About from "./About";
+import Rooms from './Rooms';
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
-
   return (
     <Router>
-    <div className="App">
-    <p>{!data ? "Loading..." : data}</p>
+      <div className="App">
         <Switch>
-          <Route path={'/play'}>
+          <Route path={"/play"}>
             <Play/>
           </Route>
-          <Route path={'/'}>
-            <Navbar/>
+          <Route path={'/playOnline/:roomID'}>
+            <PlayOnline/>
+          </Route>
+          <Route path={"/about"}>
+            <About/>
+          </Route>
+          <Route path={"/rooms"}>
+            <Rooms/>
+          </Route>
+          <Route path="/">
+            <Main/>
           </Route>
         </Switch>
-    </div>
-  </Router>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

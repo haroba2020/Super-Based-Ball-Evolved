@@ -2,107 +2,102 @@
 
 /* base styles */
 
+/* Navbar */
 
-
-* {
+body {
+  background-color: black;
   margin: 0;
-  padding: 0 !important;
-  font-family: "Quicksand";
-  color: #333;
-  box-sizing: border-box; 
 }
 
-.navbar {
-  padding: 20px;
+@font-face {
+  font-family: "streetfight";
+  src: url("../public/fonts/streetfighter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "retro";
+  src: url("../public/fonts/retro.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "score";
+  src: url("../public/fonts/score.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.list {
   display: flex;
+  justify-content: center;
   align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
+  flex-direction: column;
+  list-style: none; /* Removes bullet points */
+  margin-top: 170px;
 }
-.navbar h1 {
-  color: #f1356d;
-}
-.navbar .links {
-  margin-left: auto;
-}
-.navbar a {
-  margin-left: 16px;
+.list a{
+  color: #804d47;
   text-decoration: none;
-  padding: 6px;
-}
-.navbar a:hover {
-  color: #f1356d;
 }
 
-/* create new blog form */
-.create {
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-}
-.create label {
-  text-align: left;
-  display: block;
-}
-.create h2 {
-  font-size: 20px;
-  color: #f1356d;
-  margin-bottom: 30px;
-}
-.create input, .create textarea, .create select {
-  width: 100%;
-  padding: 6px 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  display: block;
-}
-.create button {
-  background: #f1356d;
-  color: #fff;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.create textarea{
-  height: 100px;
+.list a:hover{
+  color: #ae655d;
+  text-decoration: none;
 }
 
-body{
-  background-color: purple;
+.list li{
+  margin: 5px;
+  font-size: 30px;
+  color: #804d47;
+  font-family: "retro", sans-serif;
+  letter-spacing: 0.1em;
+  font-style: none;
 }
+
+.navbar img{
+  width: 1000px;
+  padding: 10px;
+}
+
+.play{
+  height: 100vh;
+}
+
 .title{
   font-size: 100px;
 }
 
-.flex-child-element {
-  flex: 1;
-  margin: 10px;
-  align-items: center;
+
+.player-container{
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 250px;
+  width: 100%;
+  background-image: url("../public/background/background7.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: auto; /* center the container horizontally */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.flex-parent-element {
-  display: flex;
-  width: 50%;
-  margin: auto;
+@media screen and (min-width: 1665px) {
+  .player-container{
+    width: 1665px;
+    
+  }
 }
-.select{
-  text-decoration: none;
-  color: lightblue;
-}
-.flex-parent-player {
-  display: flex;
-}
-.flex-player{
-  flex: 1;
-  text-align: center;
-}
-.white-space{
-  flex: 2;
-}
+
 .player{
-  height: 400px;
+  height: 450px;
+}
+.player1{
+  float: left;
+}
+.player2{
+  float: right;
 }
 .flip{
   transform: scaleX(-1);
@@ -111,14 +106,41 @@ body{
 .baseball{
   position: absolute;
   width: 60px;
-  top: 60%;
-  left: 20%;
-  transition: left 20ms linear;
+  top: 450px;
+  /* transition: left 20ms linear; */
 }
 .score{
-  font-size:60px;
+  font-size:120px;
+  color: rgb(255, 255, 255);
+  font-family: 'score';
+  position: absolute;
+  left: 48%;
+  right: 52%;
+  bottom: 75%;
 }
-.gameFinal{
-  margin-top: 10px;
-  font-size: 80px;
+
+.playerWinStat{
+  font-size:75px;
+  color: rgb(255, 255, 255);
+  font-family: 'score';
+  position: absolute;
+  left: 32%;
+  right: 68%;
+  bottom: 50%;
+  width: 700px;
+}
+
+/* Menu Page */
+
+.sbbe-logo-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.menu-auth {
+  
+}
+
+.menu-auth:hover {
+  cursor: pointer;
 }

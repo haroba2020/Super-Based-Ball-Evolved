@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react"
-import { Link } from 'react-router-dom'
 import { playerA, playerB } from './playerData'
 import { game } from './game'
 
@@ -27,8 +26,7 @@ const Play = () => {
     const [score, setScore] = useState(0)
     const [ballDirection, setBallDirection] = useState('')
 
-    const [player1Stat, setPlayer1Stat] = useState(' ');
-    const [player2Stat, setPlayer2Stat] = useState(' ');
+    const [playerWinStat, setPlayerWinStat] = useState(' ');
 
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
@@ -38,14 +36,14 @@ const Play = () => {
         if (!game.pause) {
             const location = ballStateRef.current;
             const timeElapsed = timestamp - lastTimestampRef.current;
-            
+
             const distanceMoved = timeElapsed * game.velocity / 14; //Divides game velocity so that the ball moves slower, this is easily adjustable
             if (game.ballDirection) {
                 setBallState((prevState) => prevState + distanceMoved);
             } else {
                 setBallState((prevState) => prevState - distanceMoved);
             }
-    
+
             if (game.ballOnScreen(location)) {
                 //Get values from the reset game function and handles theme, while reseting other values.
                 const matchData = game.restartGame()
@@ -53,14 +51,12 @@ const Play = () => {
                 setBallState(matchData[0])
                 setBallSprite(matchData[1])
                 setBallSize(matchData[2])
-                if(matchData[3]){
-                    if(matchData[4]){
-                        setPlayer1Stat('win')
-                        setPlayer2Stat('lose')
-                        console.log('player 1 wins')
-                    }else{
-                        setPlayer1Stat('lose')
-                        setPlayer2Stat('win')
+                if (matchData[3]) {
+                    if (matchData[4]) {
+                        setPlayerWinStat('PLAYER 1 WINS')
+                        console.log('PLAYER 1 WINS')
+                    } else {
+                        setPlayerWinStat('PLAYER 2 WINS')
                         console.log('player 2 wins')
                     }
                 }
@@ -74,12 +70,12 @@ const Play = () => {
     let lastTimestampRef = useRef(performance.now());
 
     //A function that makes sure all the sprites are correct.
-    function handleSprite(size, sprite, direction){
+    function handleSprite(size, sprite, direction) {
         setBallSize(size)
         setBallSprite(sprite)
         setScore(game.hits)
-        setPlayer1Stat(' ')
-        setPlayer2Stat(' ')
+        setPlayerWinStat(' ')
+
         if (direction) {
             setBallDirection('flip')
         } else {
@@ -91,39 +87,42 @@ const Play = () => {
     useEffect(() => {
         requestRef.current = requestAnimationFrame(updateBallState);
         return () => cancelAnimationFrame(requestRef.current);
-    });
+    }, [ballState]);
     //always sets ballStateRef to the current version of ballState so that it's updated whenever you call it
     useEffect(() => {
         ballStateRef.current = ballState;
-    }, [ballState]);
+    }, [ballState]); 
     //A event listener inside a useEffect so thats not rendered each time the ballState gets updated, this is good for performance.
     useEffect(() => {
-        document.addEventListener("keydown", function (e) {
-            if (e.key === "d" && playerA.cooldown === false) {
+        console.log('use effect ran!')
+        setBallState(20)
+        console.log(GIF_DATA)
+        const handleKeyDown = (e) => {
+            if (e.key === "d" && !playerA.cooldown) {
                 setPlayer1(GIF_DATA[2])
-
                 //Switches the cooldown so that you can't spam the ball and a setTimeout to make sure that it's switches back after a second passes
                 playerA.switchCooldown();
                 setTimeout(() => {
                     setPlayer1(GIF_DATA[0])
                     playerA.switchCooldown()
                 }, 1000)
-
                 // A setimeout that delays the hit by 300 miliseconds
                 setTimeout(() => {
                     //Get the current value of ballState and pass it into aHitStart and handle the values returned
                     const location = ballStateRef.current;
+                    console.log(location)
                     playerA.aHitStart(location).then((value) => {
-                        if(value){
+                        if (value) {
                             handleSprite(value.size, value.sprite, true)
-                            }else{
+                        } else {
                             console.log('u missed lmao')
                         }
                     })
                 }, 300)
 
-            // basically the same code but with player B instead of player A
-            } else if (e.key === "k" && playerB.cooldown === false) {
+                // basically the same code but with player B instead of player A
+            } else if (e.key === "k" && !playerB.cooldown) {
+                console.log('player 2 pressed a button')
                 setPlayer2(GIF_DATA[3])
                 playerB.switchCooldown();
                 setTimeout(() => {
@@ -133,9 +132,9 @@ const Play = () => {
                 setTimeout(() => {
                     const location = ballStateRef.current;
                     playerB.bhitStart(location).then((value) => {
-                        if(value){
-                        handleSprite(value.size, value.sprite, false)
-                        }else{
+                        if (value) {
+                            handleSprite(value.size, value.sprite, false)
+                        } else {
                             console.log('u missed lmao')
                         }
                     })
@@ -144,37 +143,23 @@ const Play = () => {
                 console.log(e.key)
                 game.restartGame()
             }
-        });
+          };
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            console.log('Event listener removed!');
+            document.removeEventListener('keydown', handleKeyDown);
+          };
     }, []);
     return (
         <div className="play">
-            <div className="flex-parent-player">
-                <div className="flex-player gameFinal">
-                    <h1 className="gameFinal play1Stat ">{player1Stat}</h1>
+                <div className="player-container">
+                    <img src={player1} className='flip player player1' alt="player1" />
+                    <img src={player2} className=' player player2' alt="player2" />
+                    <img className={`baseball ${ballDirection}`} alt="ball" src={ballSprite} style={{ left: ballState + '%', width: ballSize }} />
+                    <h1 className="score">{score}</h1>
+                    <h1 className="playerWinStat">{playerWinStat}</h1>
                 </div>
-                <div className="text-center white-space">
-                    <Link to="/home" className='title'>Exit</Link>
-                </div>
-                <div className="flex-player">
-                    <h1 className="gameFinal play2Stat ">{player2Stat}</h1>
-                </div>
-            </div>
-
-            <div className="flex-parent-player pt-5">
-                <div className="flex-player">
-                    <img src={player1} className='flip player' alt="player1" />
-                </div>
-                <div className="white-space"></div>
-                <div className="flex-player">
-                    <img src={player2} className=' player' alt="player2" />
-                </div>
-            </div>
-            <div className="text-center score">
-                <h1 className="score">{score}</h1>
-            </div>
-            <img className={`baseball ${ballDirection}`} alt="ball"  src={ballSprite} style={{ left: ballState + '%', width: ballSize  }} />
         </div>
     );
 }
-
 export default Play;

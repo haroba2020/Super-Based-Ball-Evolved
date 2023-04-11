@@ -9,18 +9,15 @@ export default router;
 let matches = [];
 
 router.post("/matchmaking", async function createLobby(req, res) {
-    let email = getAuthenticationInfo(req.headers.Authorization);
-
-    let player = await Player.findOne({email});
+    let { name } = req.query;
 
     let match = {
+        name,
         id: uuidv4(),
         playing: false,
-        ended: false,
-        players: [player]
     };
 
-    matches.push({owner: player});
+    matches.push(match);
     res.json(match);
 });
 router.get("/matchmaking", async function getLobbies(req, res) {
