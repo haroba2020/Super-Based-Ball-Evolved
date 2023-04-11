@@ -20,6 +20,9 @@ router.post("/@me/login", async function loginEmailPassword(req, res) {
   if (user === null) {
     return res.status(400).json({ detail: "Bad email" });
   }
+  if (password === undefined) {
+    return res.status(400).json({ detail: "Missing password" });
+  }
 
   let correctPassword = await bcrypt.compare(password, user.password);
 
@@ -37,6 +40,16 @@ router.post("/@me", async function createAccountEmailPassword(req, res) {
 
   let salt = await bcrypt.genSalt();
   password = await bcrypt.hash(password, salt);
+  
+  if (email === undefined) {
+    return res.status(400).json({ detail: "Missing email" });
+  }
+  if (password === undefined) {
+    return res.status(400).json({ detail: "Missing password" });
+  }
+  if (playerName === undefined) {
+    return res.status(400).json({ detail: "Missing playerName" });
+  }
 
   try {
     let user = new Player({
