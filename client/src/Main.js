@@ -26,6 +26,8 @@ MyComponent()
                 <li><Link to="/play">GAME START</Link></li>
                 <li><Link to="/rooms">ROOMS</Link></li>
                 <li><Link to="/about">ABOUT</Link></li>
+                <li><Link to="/login">LOGIN</Link></li>
+                <li><Link to="/signup">SIGNUP</Link></li>
               </ul>
             </div>
             <div className="skin-container cool-border">

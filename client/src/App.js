@@ -4,6 +4,8 @@ import PlayOnline from './PlayOnline';
 import Main from "./Main";
 import About from "./About";
 import Rooms from './Rooms';
+import Login from './Login';
+import Signup from './Signup';
 function App() {
   return (
     <Router>
@@ -20,6 +22,12 @@ function App() {
           </Route>
           <Route path={"/rooms"}>
             <Rooms/>
+          </Route>
+          <Route path={"/login"}>
+            <Login/>
+          </Route>
+          <Route path={"/signup"}>
+            <Signup/>
           </Route>
           <Route path="/">
             <Main/>
