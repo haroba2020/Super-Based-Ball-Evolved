@@ -1,9 +1,8 @@
 resource "ssh_resource" "thugshaker_docker" {
-  host         = "thugshaker.servers.sbbe.io"
+  host         = var.server_thugshaker_ip
   user         = "root"
-  password     = var.server_thugshaker_ip
+  password     = var.server_thugshaker_password
   agent        = false
-  timeout      = "60m"
 
   when         = "create" # Default
 
@@ -14,6 +13,8 @@ resource "ssh_resource" "thugshaker_docker" {
   }
 
   commands = [
+    "apt install -y dos2unix",
+    "dos2unix /tmp/docker.sh",
     "source /tmp/docker.sh",
   ]
 }

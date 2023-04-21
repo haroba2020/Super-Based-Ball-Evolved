@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 # Repos
 apt update
 apt install -y ca-certificates curl gnupg
