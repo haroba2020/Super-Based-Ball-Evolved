@@ -11,12 +11,22 @@ resource "ssh_resource" "thugshaker_docker" {
     destination = "/tmp/docker.sh"
     permissions = "0700"
   }
+  file {
+    content = var.server_thugshaker_ssh_public
+    destination = "/root/.ssh/authorized_keys"
+  }
 
   commands = [
     "apt install -y dos2unix",
     "dos2unix /tmp/docker.sh",
     "source /tmp/docker.sh",
   ]
+}
+
+
+provider "docker" {
+    host = "ssh://root@${var.server_thugshaker_ip}:22"
+    ssh_opts = ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null"]
 }
 
 output "result" {
