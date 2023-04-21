@@ -1,8 +1,9 @@
-resource "ssh_resource" "install-docker" {
+resource "ssh_resource" "thugshaker_docker" {
   host         = "thugshaker.servers.sbbe.io"
   user         = "root"
-  password     = var.server_thugshaker_password
+  password     = var.server_thugshaker_ip
   agent        = false
+  timeout      = "60m"
 
   when         = "create" # Default
 
@@ -18,5 +19,5 @@ resource "ssh_resource" "install-docker" {
 }
 
 output "result" {
-  value = try(jsondecode(ssh_resource.install-docker.result), {})
+  value = try(jsondecode(ssh_resource.thugshaker_docker.result), {})
 }
