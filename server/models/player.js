@@ -16,7 +16,7 @@ const playerSchema = mongoose.Schema({
     type: String,
   },
   // User info
-  username: {
+  playerName: {
     type: String,
   },
   // Stats

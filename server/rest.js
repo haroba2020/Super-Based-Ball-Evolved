@@ -8,7 +8,7 @@ import matchmakingRouter from "./routes/matchmaking.js";
 
 export const app = express();
 app.use(cors());
-
+app.use(express.json());
 // Routes
 app.use(accountRouter);
 app.use(matchmakingRouter);
