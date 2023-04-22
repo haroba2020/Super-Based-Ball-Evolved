@@ -37,10 +37,11 @@ router.post("/@me/login", async function loginEmailPassword(req, res) {
 
 router.post("/@me", async function createAccountEmailPassword(req, res) {
   let { email, password, playerName } = req.query;
-
+  console.log(email +'Yarr this be the password')
+  console.log('log 1')
   let salt = await bcrypt.genSalt();
   password = await bcrypt.hash(password, salt);
-  
+  console.log('log 2')
   if (email === undefined) {
     return res.status(400).json({ detail: "Missing email" });
   }
