@@ -1,3 +1,4 @@
+import { apiURL } from "./constants";
 import { useState, useEffect, useRef } from "react"
 import { playerA, playerB } from './playerData'
 import { game } from './game'
@@ -31,6 +32,23 @@ const Play = () => {
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
 
+    async function postStats(json){
+        try {
+            console.log('try trying')
+            console.log(json)
+          //sender data som lager bruker
+          const res = await fetch(`${apiURL}/@post-stats`,{
+            method: 'post',
+            body: json,
+            headers: {'Content-Type': 'application/json'}
+          })
+          //venter på user data
+          const data = await res.json()
+          console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const updateBallState = (timestamp) => {
         if (!game.pause) {
@@ -51,14 +69,24 @@ const Play = () => {
                 setBallState(matchData[0])
                 setBallSprite(matchData[1])
                 setBallSize(matchData[2])
-                if (matchData[3]) {
-                    if (matchData[4]) {
+                if (matchData[5]) {
+                    if (matchData[6]) {
                         setPlayerWinStat('PLAYER 1 WINS')
-                        console.log('PLAYER 1 WINS')
                     } else {
                         setPlayerWinStat('PLAYER 2 WINS')
                         console.log('player 2 wins')
                     }
+                }else{
+                    const userDataString = localStorage.getItem('user');
+                    const userData = JSON.parse(userDataString);
+                    
+                    const token = userData.token
+                    const exp =matchData[3]
+                    const hits =matchData[4]
+                    const status = false
+                    const json = JSON.stringify({exp,hits,status, token})
+                    console.log(json +' I love json')
+                    postStats(json)
                 }
             }
         }
@@ -94,9 +122,7 @@ const Play = () => {
     }, [ballState]); 
     //A event listener inside a useEffect so thats not rendered each time the ballState gets updated, this is good for performance.
     useEffect(() => {
-        console.log('use effect ran!')
         setBallState(20)
-        console.log(GIF_DATA)
         const handleKeyDown = (e) => {
             if (e.key === "d" && !playerA.cooldown) {
                 setPlayer1(GIF_DATA[2])
@@ -110,19 +136,15 @@ const Play = () => {
                 setTimeout(() => {
                     //Get the current value of ballState and pass it into aHitStart and handle the values returned
                     const location = ballStateRef.current;
-                    console.log(location)
                     playerA.aHitStart(location).then((value) => {
                         if (value) {
                             handleSprite(value.size, value.sprite, true)
-                        } else {
-                            console.log('u missed lmao')
                         }
                     })
                 }, 300)
 
                 // basically the same code but with player B instead of player A
             } else if (e.key === "k" && !playerB.cooldown) {
-                console.log('player 2 pressed a button')
                 setPlayer2(GIF_DATA[3])
                 playerB.switchCooldown();
                 setTimeout(() => {
@@ -134,19 +156,15 @@ const Play = () => {
                     playerB.bhitStart(location).then((value) => {
                         if (value) {
                             handleSprite(value.size, value.sprite, false)
-                        } else {
-                            console.log('u missed lmao')
                         }
                     })
                 }, 300)
             } else if (e.key === " ") {
-                console.log(e.key)
                 game.restartGame()
             }
           };
         document.addEventListener("keydown", handleKeyDown);
         return () => {
-            console.log('Event listener removed!');
             document.removeEventListener('keydown', handleKeyDown);
           };
     }, []);

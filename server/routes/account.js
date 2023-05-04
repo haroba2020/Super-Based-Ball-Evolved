@@ -8,12 +8,23 @@ const router = Router();
 export default router;
 
 // Utils
-function createAuthenticationToken(email) {
-  return jwt.sign({ email }, SIGNING_KEY, { expiresIn: "5h" });
+function createAuthenticationToken(id) {
+  return jwt.sign({ id }, SIGNING_KEY, { expiresIn: "5h" });
+}
+function verifyAuthToken(token){
+  jwt.verify(token, SIGNING_KEY, function(err, decoded) {
+    if (err) {
+      console.log('Invalid JWT!');
+    } else {
+      console.log(token)
+      console.log(JSON.stringify(decoded.id) + ' decoded token')
+      return decoded.id;
+    }
+  });
 }
 
 router.post("/@me/login", async function loginEmailPassword(req, res) {
-  let { email, password } = req.query;
+  let { email, password } = req.body;
 
   let user = await Player.findOne({ email });
 
@@ -30,12 +41,56 @@ router.post("/@me/login", async function loginEmailPassword(req, res) {
     return res.status(400).json({ detail: "Wrong password" });
   }
 
-  let token = createAuthenticationToken(email);
+  let token = createAuthenticationToken(user._id);
 
-  res.json({ token });
+  res.json({ token, name:user.playerName});
 });
+router.post("/@me", async function createAccountEmailPassword(req, res) {
+  let { email, password, playerName } = req.body;
+  console.log(email +'Yarr this be the password')
+  console.log('log 1')
+  let salt = await bcrypt.genSalt();
+  password = await bcrypt.hash(password, salt);
+  console.log('log 2')
+  if (email === undefined) {
+    return res.status(400).json({ detail: "Missing email" });
+  }
+  if (password === undefined) {
+    return res.status(400).json({ detail: "Missing password" });
+  }
+  if (playerName === undefined) {
+    return res.status(400).json({ detail: "Missing playerName" });
+  }
 
-router.post("/@lmao", async function createAccountEmailPassword(req, res) {
-  res.cookie('fakk off','gaming', { maxAge: 1000000})
+  try {
+    let user = new Player({
+      email,
+      password,
+      playerName,
+    });
+    await user.save();
+    let token = createAuthenticationToken(user._id);
+    res.json({ token, playerName });
+  } catch (e) {
+    return res.status(400).json(e);
+  }
+})
+router.post("/@post-stats", async function createAccountEmailPassword(req, res) {
+  // wins
+  // losses
+  // rankingScore
+  // level
+  // Ballhit
+  // MatchesPlayed
+  if(!req.body.status){
+    const {exp, hits, token} = req.body
+    console.log(token)
+    const id = verifyAuthToken(token)
+    console.log(id)
+    let user = await Player.findOne({ id });
+    // const updatedPlayer = await Player.findByIdAndUpdate(id, {exp,brand,price,model,articleNumber,createdAt}, {new: true});
+
+    console.log(exp, hits)
+  }
   res.json({});
 });
