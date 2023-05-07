@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { music, game } from './game'
-import { Link } from 'react-router-dom'
-import Cookies from 'js-cookie';
+import { Link, Redirect } from 'react-router-dom'
 
 const Main = () => {
-  const access_token = Cookies.get('access_token');
-  const refresh_token = Cookies.get('refresh_token',);
-  console.log(access_token, refresh_token);
+
+const userData = localStorage.getItem('user');
+const [redirect, setRedirect] = useState(false)
+
+function logout(){
+  localStorage.removeItem('user')
+  setRedirect(true)
+}
+console.log(userData)
   function MyComponent() {
     useEffect(() => {
       // Your function here
@@ -29,8 +34,11 @@ MyComponent()
                 <li><Link to="/play">GAME START</Link></li>
                 <li><Link to="/rooms">ROOMS</Link></li>
                 <li><Link to="/about">ABOUT</Link></li>
+                {userData &&<li onClick={() => logout()}>LOGOUT</li>|| 
+                <> 
                 <li><Link to="/login">LOGIN</Link></li>
                 <li><Link to="/signup">SIGNUP</Link></li>
+                </>}
               </ul>
             </div>
             <div className="skin-container cool-border">
@@ -46,7 +54,8 @@ MyComponent()
             <img className="basedball-title" src="/img/SuperBasedBallTitle.png" alt="" />
             <img className="basedball-info" src="/img/SuperBasedBallInfo.png" alt="" />
         </div>
-      </div>  
+      </div>
+      {redirect&&<Redirect to='/'/>}
     </div>);
 }
  

@@ -28,6 +28,18 @@ const playerSchema = mongoose.Schema({
   level: {
     type: Number,
   },
+  exp: {
+    type: Number,
+  },
+  basedBucks: {
+    type: Number,
+  },
+  matchesPlayed:{
+    type: Number
+  },
+  roundsPlayed:{
+    type: Number
+  }
 });
 
 export const Player = mongoose.model("player", playerSchema);

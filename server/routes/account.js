@@ -8,16 +8,25 @@ const router = Router();
 export default router;
 
 // Utils
-// function createAuthenticationToken(email) {
-//   return jwt.sign({ email }, SIGNING_KEY, { expiresIn: 10000000 });
-// }
-
-function createLocalStorageToken(id){
-    return jwt.sign({ _id }, SIGNING_KEY, { expiresIn: '7d' });
+function createAuthenticationToken(id) {
+  return jwt.sign({ id }, SIGNING_KEY, { expiresIn: "5h" });
+}
+function verifyAuthToken(token) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, SIGNING_KEY, function(err, decoded) {
+      if (err) {
+        console.log('Invalid JWT!');
+        reject(err);
+      } else {
+        resolve(decoded.id);
+      }
+    });
+  });
 }
 
+
 router.post("/@me/login", async function loginEmailPassword(req, res) {
-  let { email, password } = req.query;
+  let { email, password } = req.body;
 
   let user = await Player.findOne({ email });
 
@@ -34,9 +43,9 @@ router.post("/@me/login", async function loginEmailPassword(req, res) {
     return res.status(400).json({ detail: "Wrong password" });
   }
 
-  let token = createAuthenticationToken(email);
+  let token = createAuthenticationToken(user._id);
 
-  res.json({ token });
+  res.json({ token, name:user.playerName});
 });
 router.post("/@me", async function createAccountEmailPassword(req, res) {
   let { email, password, playerName } = req.body;
@@ -56,19 +65,49 @@ router.post("/@me", async function createAccountEmailPassword(req, res) {
   }
 
   try {
-    const user = await Player.create({email, password, playerName,})
+    let user = new Player({
+      email,
+      password,
+      playerName,
+    });
     await user.save();
-    console.log(user._id)
-    let token = createLocalStorageToken(user._id)
-    console.log(email,password,playerName,token)
-    res.json({email,password,playerName,token })
+    const updatedPlayer = await Player.findByIdAndUpdate(user._id, {exp:0,basedBucks:0,level:0,losses:0,wins:0,matchesPlayed:0,roundsPlayed:0,rankingScore:0}, {new: true});
+    console.log(updatedPlayer)
+    let token = createAuthenticationToken(user._id);
+    res.json({ token, playerName });
   } catch (e) {
-    console.log(e)
     return res.status(400).json(e);
   }
-  
+})
+router.post("/@post-stats-local", async function createAccountEmailPassword(req, res) {
+  if(!req.body.status){
+    const {exp, token} = req.body
+    try {
+      const id = await verifyAuthToken(token);
+      let user = await Player.findById(id);
+      const updatedPlayer = await Player.findByIdAndUpdate(id, {exp:exp+user.exp, basedBucks:exp+user.basedBucks }, {new: true});
+      console.log(updatedPlayer)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  res.json({});
 });
-router.post("/@lmao", async function createAccountEmailPassword(req, res) {
-  res.cookie('jwt','gaming', { maxAge: 1000000})
-  res.json({gaming:'gaming'});
+router.post("/@post-stats-online", async function createAccountEmailPassword(req, res) {
+  if(!req.body.status){
+    const {exp, token, status} = req.body
+    if(!status){
+      try {
+        const id = await verifyAuthToken(token);
+        let user = await Player.findById(id);
+        const updatedPlayer = await Player.findByIdAndUpdate(id, {exp:exp+user.exp, basedBucks:exp+user.basedBucks }, {new: true});
+        console.log(updatedPlayer)
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    
+  }
+  res.json({});
 });

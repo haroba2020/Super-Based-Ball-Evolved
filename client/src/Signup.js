@@ -1,28 +1,11 @@
 import { apiURL } from "./constants";
 import { Redirect } from 'react-router-dom'
 import { useState } from "react";
-import Cookies from 'js-cookie';
 
 const Signup = () => {
 
     const [redirect, setRedirect] = useState(false)
-    async function fakkoff(e){
-        e.preventDefault();
-
-        try{
-            const res = await fetch(`${apiURL}/@lmao`,{
-                method: 'post',
-                body: JSON.stringify({}),
-                headers: {'Content-Type': 'application/json'}
-              })
-              const data = await res.json()
-              console.log(data)
     
-              
-        }catch(err){
-            console.log(err)
-        }
-    }
     async function fetching(e){
         e.preventDefault();
         console.log(e)
@@ -34,6 +17,7 @@ const Signup = () => {
         const playerName = form.playerName.value
         try {
           console.log('try trying')
+          console.log(JSON.stringify({email,password,playerName}))
           //sender data som lager bruker
           const res = await fetch(`${apiURL}/@me`,{
             method: 'post',
@@ -42,8 +26,8 @@ const Signup = () => {
           })
           //venter på user data
           const data = await res.json()
-          console.log(JSON.stringify(data) + ' Data');
           localStorage.setItem('user', JSON.stringify(data));
+          console.log(data)
           setRedirect(true)
 
           // Error handler
@@ -64,10 +48,9 @@ const Signup = () => {
                     <label htmlFor="email">Email:</label>
                     <input type="text" name="playerName" id="playerName" />
                     <label htmlFor="playerName">Name:</label>
-                    <input type="text" name="password" id="password" />
+                    <input type="password" name="password" id="password" />
                     <label htmlFor="password">Password:</label>
                     <button onClick={fetching}>Submit</button>
-                    <button onClick={fakkoff}>fakk off</button>
                 </form>
             </div>
             {redirect&&<Redirect to='/'/>}

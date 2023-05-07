@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useParams } from "react-router-dom"
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { rtcURL } from "./constants"
+import { rtcURL, apiURL} from "./constants"
 import { playerA, playerB } from './playerData'
 import { game } from './game'
 
@@ -37,6 +37,24 @@ const PlayOnline = () => {
     const requestRef = useRef();
     const ballStateRef = useRef(ballState);
     
+    async function postStats(json){
+        try {
+            console.log('try trying')
+            console.log(json)
+          //sender data som lager bruker
+          const res = await fetch(`${apiURL}/@post-stats-online`,{
+            method: 'post',
+            body: json,
+            headers: {'Content-Type': 'application/json'}
+          })
+          //venter på user data
+          const data = await res.json()
+          console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const updateBallState = (timestamp) => {
         if (!game.pause) {
             const location = ballStateRef.current;
@@ -57,14 +75,32 @@ const PlayOnline = () => {
                 setBallState(matchData[0])
                 setBallSprite(matchData[1])
                 setBallSize(matchData[2])
-                if (matchData[3]) {
-                    if (matchData[4]) {
+                const exp = matchData[3]
+                const userDataString = localStorage.getItem('user');
+                const userData = JSON.parse(userDataString);
+                const token = userData.token
+                const hits = matchData[4]
+                const winner = matchData[5]
+                if (matchData[6]) {
+                    const status = true
+                    if(winner===playerSelect){
+                        const win = true
+                        const json = JSON.stringify({exp, token, hits, status, win})
+                        postStats(json)
+                    }else{
+                        const win = false
+                        const json = JSON.stringify({exp, token, hits, status, win})
+                        postStats(json)
+                    }
+                    if (matchData[7]) {
                         setPlayerWinStat('PLAYER 1 WINS')
                         console.log('PLAYER 1 WINS')
                     } else {
                         setPlayerWinStat('PLAYER 2 WINS')
                         console.log('player 2 wins')
                     }
+                }else{
+                    
                 }
             }
         }
@@ -78,7 +114,7 @@ const PlayOnline = () => {
     function handleSprite(size, sprite, direction) {
         setBallSize(size)
         setBallSprite(sprite)
-        setScore(game.hits)
+        setScore(game.hits) 
         setPlayerWinStat(' ')
 
         if (direction) {

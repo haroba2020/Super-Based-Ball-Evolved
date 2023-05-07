@@ -85,27 +85,37 @@ export const game = {
             return true
         }
     },
+    exp(x){
+        return 2**(0.125*x);
+    },
+    calcWinner(location){
+        if(location<50){
+            return 'A'
+        }else{
+            return 'B'
+        }
+    },
     //Method that restarts the ball and checks for a winner
     restartGame() {
+        const exp = this.exp(this.hits)
+        const winner = (this.calcWinner(this.location))
+        let hits = this.hits
         this.hits = 0
         this.velocity = 0.5
         this.location = 20
         this.pause = true
         music.list[music.rNumber].volume = 0.2
-        const returning = [this.location, GIF_DATA[4], 60]
+        const returning = [this.location, GIF_DATA[4], 60, exp, hits, winner]
         if(playerA.score===3){
-            // player1Stat.textContent = "win"
-            // player2Stat.textContent = "lose"
             playerA.score = 0
             playerB.score = 0
             returning.push(true, true)
         }else if(playerB.score===3){
-            // player1Stat.textContent = "lose"
-            // player2Stat.textContent = "win"
             playerA.score = 0
             playerB.score = 0
             returning.push(true, false)
         }
+
         return returning
     },
     // method that changes the scene base on how many hits have been fired
