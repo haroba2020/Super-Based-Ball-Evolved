@@ -5,10 +5,6 @@ import Cookies from 'js-cookie';
 
 const Signup = () => {
 
-    const myCookie = Cookies.get('jwt');
-    console.log(myCookie)
-
-
     const [redirect, setRedirect] = useState(false)
     async function fakkoff(e){
         e.preventDefault();
@@ -19,9 +15,12 @@ const Signup = () => {
                 body: JSON.stringify({}),
                 headers: {'Content-Type': 'application/json'}
               })
-              console.log(res)
-        }catch{
-            console.log('bruh')
+              const data = await res.json()
+              console.log(data)
+    
+              
+        }catch(err){
+            console.log(err)
         }
     }
     async function fetching(e){
@@ -43,7 +42,8 @@ const Signup = () => {
           })
           //venter på user data
           const data = await res.json()
-          console.log(data)
+          console.log(JSON.stringify(data) + ' Data');
+          localStorage.setItem('user', JSON.stringify(data));
           setRedirect(true)
 
           // Error handler

@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { music, game } from './game'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 const Main = () => {
-
+  const access_token = Cookies.get('access_token');
+  const refresh_token = Cookies.get('refresh_token',);
+  console.log(access_token, refresh_token);
   function MyComponent() {
     useEffect(() => {
       // Your function here
