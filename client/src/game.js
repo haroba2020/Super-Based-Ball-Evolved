@@ -88,16 +88,24 @@ export const game = {
     exp(x){
         return 2**(0.125*x);
     },
+    calcWinner(location){
+        if(location<50){
+            return 'A'
+        }else{
+            return 'B'
+        }
+    },
     //Method that restarts the ball and checks for a winner
     restartGame() {
         const exp = this.exp(this.hits)
+        const winner = (this.calcWinner(this.location))
         let hits = this.hits
         this.hits = 0
         this.velocity = 0.5
         this.location = 20
         this.pause = true
         music.list[music.rNumber].volume = 0.2
-        const returning = [this.location, GIF_DATA[4], 60, exp, hits]
+        const returning = [this.location, GIF_DATA[4], 60, exp, hits, winner]
         if(playerA.score===3){
             playerA.score = 0
             playerB.score = 0

@@ -35,6 +35,9 @@ const playerSchema = mongoose.Schema({
   exp: {
     type: Number,
   },
+  basedBucks: {
+    type: Number,
+  },
   matchesPlayed:{
     type: Number
   },

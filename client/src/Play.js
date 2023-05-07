@@ -37,7 +37,7 @@ const Play = () => {
             console.log('try trying')
             console.log(json)
           //sender data som lager bruker
-          const res = await fetch(`${apiURL}/@post-stats`,{
+          const res = await fetch(`${apiURL}/@post-stats-local`,{
             method: 'post',
             body: json,
             headers: {'Content-Type': 'application/json'}
@@ -69,24 +69,19 @@ const Play = () => {
                 setBallState(matchData[0])
                 setBallSprite(matchData[1])
                 setBallSize(matchData[2])
-                if (matchData[5]) {
-                    if (matchData[6]) {
+                const userDataString = localStorage.getItem('user');
+                const userData = JSON.parse(userDataString);
+                const token = userData.token
+                const exp = matchData[3]
+                const json = JSON.stringify({exp, token})
+                postStats(json)
+                if (matchData[6]) {
+                    if (matchData[7]) {
                         setPlayerWinStat('PLAYER 1 WINS')
                     } else {
                         setPlayerWinStat('PLAYER 2 WINS')
                         console.log('player 2 wins')
                     }
-                }else{
-                    const userDataString = localStorage.getItem('user');
-                    const userData = JSON.parse(userDataString);
-                    
-                    const token = userData.token
-                    const exp =matchData[3]
-                    const hits =matchData[4]
-                    const status = false
-                    const json = JSON.stringify({exp,hits,status, token})
-                    console.log(json +' I love json')
-                    postStats(json)
                 }
             }
         }
